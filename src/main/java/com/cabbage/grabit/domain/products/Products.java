@@ -55,4 +55,8 @@ public class Products {
         this.saleStatus = true;
     }
 
+    public void switchStatus(){
+        saleStatus = !saleStatus;
+    }
+
 }
