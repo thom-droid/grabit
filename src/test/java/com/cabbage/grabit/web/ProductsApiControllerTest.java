@@ -143,4 +143,47 @@ public class ProductsApiControllerTest {
         assertThat(product.isSaleStatus()).isEqualTo(false);
 
     }
+
+    @Test
+    public void givenProductId_whenDeleteRequest_thenDeleted() throws Exception{
+
+        // given
+        // data
+        Giver giver = Giver.builder()
+                .name("할명수")
+                .company("무한상사")
+                .email("audtn@gmail.com")
+                .businessNum("1234523422")
+                .picture("default.jpg")
+                .build();
+
+        giverRepository.save(giver);
+
+        String name = "글쓰기의 요소";
+        Integer price = 8000;
+        String details = "글쓰기가 무엇인지 보여드립니다.";
+
+        Products productEntity = PostProductRequestDto.builder()
+                .giver(giver)
+                .name(name)
+                .price(price)
+                .details(details)
+                .categories(Categories.CLOTHING)
+                .build().toEntity();
+
+        // insert data
+        productsRepository.save(productEntity);
+
+        Long deleteId = productEntity.getId();
+
+        String url ="http://localhost:"+port+"/api/v1/products/"+deleteId;
+
+        //when
+        mockMvc.perform(delete(url)).andExpect(status().isOk());
+
+        //then
+        List<Products> list = productsRepository.findAll();
+        assertThat(list).isEmpty();
+
+    }
 }

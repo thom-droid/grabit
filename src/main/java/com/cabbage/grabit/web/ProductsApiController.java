@@ -20,4 +20,10 @@ public class ProductsApiController {
     public Long switchStatus(@PathVariable Long id){
         return productsService.switchStatus(id);
     }
+
+    @DeleteMapping("/api/v1/products/{id}")
+    public Long delete(@PathVariable Long id){
+        productsService.delete(id);
+        return id;
+    }
 }
