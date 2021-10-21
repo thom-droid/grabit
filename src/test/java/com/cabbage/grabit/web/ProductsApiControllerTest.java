@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -95,6 +96,51 @@ public class ProductsApiControllerTest {
         assertEquals(productsList.get(0).getName(), name);
         assertEquals(productsList.get(0).getPrice(), price);
         assertEquals(productsList.get(0).getDetails(), details);
+
+    }
+
+    @Test
+    public void givenProductId_whenPutRequest_thenIsStatusSwitched() throws Exception{
+
+        // given
+        // data
+        Giver giver = Giver.builder()
+                .name("할명수")
+                .company("무한상사")
+                .email("audtn@gmail.com")
+                .businessNum("1234523422")
+                .picture("default.jpg")
+                .build();
+
+        giverRepository.save(giver);
+
+        String name = "글쓰기의 요소";
+        Integer price = 8000;
+        String details = "글쓰기가 무엇인지 보여드립니다.";
+
+        Products productEntity = PostProductRequestDto.builder()
+                .giver(giver)
+                .name(name)
+                .price(price)
+                .details(details)
+                .categories(Categories.CLOTHING)
+                .build().toEntity();
+
+        // insert data
+        productsRepository.save(productEntity);
+
+        Long updateId = productEntity.getId();
+
+        String url ="http://localhost:"+port+"/api/v1/products/"+updateId;
+
+        // when
+        mockMvc.perform(put(url)).andExpect(status().isOk());
+
+        //then
+        List<Products> productsList = productsRepository.findAll();
+        Products product = productsList.get(0);
+
+        assertThat(product.isSaleStatus()).isEqualTo(false);
 
     }
 }
