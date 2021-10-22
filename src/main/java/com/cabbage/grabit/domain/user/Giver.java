@@ -1,10 +1,12 @@
 package com.cabbage.grabit.domain.user;
 
+import com.cabbage.grabit.domain.products.Products;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -34,6 +36,9 @@ public class Giver {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @OneToMany(mappedBy = "giver")
+    private List<Products> products;
 
     @Builder
     public Giver(String name, String email, String picture, String businessNum, String company) {
