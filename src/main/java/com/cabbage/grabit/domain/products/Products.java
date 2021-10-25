@@ -18,10 +18,11 @@ public class Products {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "GIVER_ID", nullable = false)
+    @JoinColumn(name = "GIVER_ID", referencedColumnName = "ID")
     private Giver giver;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Categories categories;
 
     @Column(nullable = false)

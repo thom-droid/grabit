@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,8 +38,16 @@ public class Giver {
     @Column(nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "giver")
-    private List<Products> products;
+    @OneToMany(mappedBy = "giver", fetch = FetchType.LAZY)
+    private List<Products> products = new ArrayList<>();
+
+    public void addProduct(Products product){
+        this.products.add(product);
+    }
+
+    public void updatePicture(String picture){
+        this.picture = picture;
+    }
 
     @Builder
     public Giver(String name, String email, String picture, String businessNum, String company) {
