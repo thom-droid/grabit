@@ -85,7 +85,7 @@ public class ProductsApiControllerTest {
 
         String url ="http://localhost:"+port+ "/api/v1/products";
         String content = new ObjectMapper().writeValueAsString(requestDto);
-
+        System.out.println(content);
         //given
         mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON_UTF8).content(content)).andExpect(status().isOk());
 
@@ -184,6 +184,7 @@ public class ProductsApiControllerTest {
         //then
         List<Products> list = productsRepository.findAll();
         assertThat(list).isEmpty();
+        assertThat(giver).isNotNull();
 
     }
 }
