@@ -21,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.*;
@@ -62,9 +63,10 @@ public class ProductJPATest {
                 .name(name)
                 .build().toEntity();
 
+        giver.addProduct(product1);
+
         productsRepository.save(product1);
 
-        giver.addProduct(product1);
     }
 
     @After
@@ -127,4 +129,20 @@ public class ProductJPATest {
         assertThat(giver.getPicture()).isEqualTo(product.getGiver().getPicture());
 
     }
+
+    @Test
+    public void selectProductsUsingStream() {
+
+        Giver giverEntity = giverRepository.getOne(1L);
+        List<ProductResponseDto> responseDtoList = giverEntity.getProducts().stream().map(ProductResponseDto::new).collect(Collectors.toList());
+
+        for (ProductResponseDto dto : responseDtoList){
+            System.out.println(dto.getName());
+        }
+
+        assertThat(responseDtoList).isNotNull();
+
+    }
+
+
 }

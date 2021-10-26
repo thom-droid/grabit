@@ -36,6 +36,11 @@ public class ProductsApiController {
         return productsService.selectProductListByGiver(giver);
     }
 
+    @GetMapping("/api/v1/giver/products2/{giverId}")
+    public List<ProductResponseDto> findMyProducts2(@PathVariable Long giverId){
+        return productsService.selectProductListByGiver2(giverId);
+    }
+
 
 
 }

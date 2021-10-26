@@ -5,12 +5,17 @@ import com.cabbage.grabit.domain.products.Products;
 import com.cabbage.grabit.domain.products.ProductsRepository;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.GiverRepository;
+import com.cabbage.grabit.service.products.ProductsService;
 import com.cabbage.grabit.web.dto.request.PostProductRequestDto;
+import com.cabbage.grabit.web.dto.response.ProductResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -18,14 +23,18 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -49,8 +58,10 @@ public class ProductsApiControllerTest {
 
     @Before
     public void setup(){
+        MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-    }
+        }
+
     @After
     public void tearDown() throws Exception {
         productsRepository.deleteAll();
@@ -92,7 +103,6 @@ public class ProductsApiControllerTest {
         //then
         List<Products> productsList = productsRepository.findAll();
 
-        assertEquals(productsList.get(0).getGiver(), giver);
         assertEquals(productsList.get(0).getName(), name);
         assertEquals(productsList.get(0).getPrice(), price);
         assertEquals(productsList.get(0).getDetails(), details);
@@ -185,6 +195,61 @@ public class ProductsApiControllerTest {
         List<Products> list = productsRepository.findAll();
         assertThat(list).isEmpty();
         assertThat(giver).isNotNull();
+    }
+
+    @Test
+    @Transactional
+    public void givenGiver_whenGetRequest_thenListIsReturned() throws Exception{
+
+        //given
+        Giver giver = Giver.builder()
+                .name("할명수")
+                .company("무한상사")
+                .email("audtn@gmail.com")
+                .businessNum("1234523422")
+                .picture("default.jpg")
+                .build();
+
+        giverRepository.save(giver);
+
+        String name = "글쓰기의 요소";
+        Integer price = 8000;
+        String details = "글쓰기가 무엇인지 보여드립니다.";
+
+        Products product1 = PostProductRequestDto.builder()
+                .giver(giver)
+                .name(name)
+                .price(price)
+                .details(details)
+                .categories(Categories.CLOTHING)
+                .build().toEntity();
+
+        String name2 = "돈키호테";
+        Integer price2 = 9500;
+        String details2 = "눈물없인 볼 수 없다";
+
+        Products product2 = PostProductRequestDto.builder()
+                .giver(giver)
+                .name(name2)
+                .price(price2)
+                .categories(Categories.CLOTHING_SOCKS)
+                .details(details2)
+                .build().toEntity();
+
+        productsRepository.save(product1);
+        productsRepository.save(product2);
+
+        Giver giverEntity = giverRepository.findById(1L).orElseThrow(()->new IllegalArgumentException("no"));
+        giverEntity.addProduct(product1);
+        giverEntity.addProduct(product2);
+        Long giverId = giverEntity.getId();
+
+        String url = "http://localhost:"+ port +"/api/v1/giver/products2/"+giverId;
+
+        //when
+        mockMvc.perform(get(url)).andExpect(status().isOk()).andDo(print());
 
     }
+
+
 }

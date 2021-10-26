@@ -23,7 +23,11 @@ public class ProductsService {
 
     @Transactional
     public Long postProduct(PostProductRequestDto requestDto){
-        return productsRepository.save(requestDto.toEntity()).getId();
+
+        Products product = requestDto.toEntity();
+        requestDto.getGiver().addProduct(product);
+
+        return productsRepository.save(product).getId();
     }
 
     @Transactional
@@ -56,6 +60,12 @@ public class ProductsService {
         return responseDtoList;
     }
 
+    @Transactional(readOnly = true)
+    public List<ProductResponseDto> selectProductListByGiver2(Long giverId){
+        Giver giverEntity = giverRepository.findById(giverId).orElseThrow(()-> new IllegalArgumentException("error"));
+        return giverEntity.getProducts().stream().map(ProductResponseDto::new).collect(Collectors.toList());
+
+    }
 
 
 
