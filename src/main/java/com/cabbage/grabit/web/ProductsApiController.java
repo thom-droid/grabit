@@ -3,6 +3,7 @@ package com.cabbage.grabit.web;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.service.products.ProductsService;
 import com.cabbage.grabit.web.dto.request.PostProductRequestDto;
+import com.cabbage.grabit.web.dto.response.ProductListResponseDto;
 import com.cabbage.grabit.web.dto.response.ProductResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -31,15 +32,18 @@ public class ProductsApiController {
         return id;
     }
 
-    @GetMapping("/api/v1/giver/products")
-    public List<ProductResponseDto> findMyProducts(Giver giver){
-        return productsService.selectProductListByGiver(giver);
+    @GetMapping("/api/v1/giver/products/{giverId}")
+    public List<ProductResponseDto> findMyProducts(@PathVariable Long giverId){
+        return productsService.selectProductListByGiver(giverId);
     }
 
     @GetMapping("/api/v1/giver/products2/{giverId}")
     public List<ProductResponseDto> findMyProducts2(@PathVariable Long giverId){
         return productsService.selectProductListByGiver2(giverId);
     }
+
+
+
 
 
 

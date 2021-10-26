@@ -34,7 +34,7 @@ public class Products {
     @Column(nullable = false)
     private String details;
 
-    @Column(nullable = false)
+    @Column(name = "sales_status", nullable = false)
     private boolean saleStatus;
 
     @Column(precision = 7, scale = 0)

@@ -28,6 +28,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -96,7 +97,7 @@ public class ProductsApiControllerTest {
 
         String url ="http://localhost:"+port+ "/api/v1/products";
         String content = new ObjectMapper().writeValueAsString(requestDto);
-        System.out.println(content);
+
         //given
         mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON_UTF8).content(content)).andExpect(status().isOk());
 
@@ -112,34 +113,7 @@ public class ProductsApiControllerTest {
     @Test
     public void givenProductId_whenPutRequest_thenIsStatusSwitched() throws Exception{
 
-        // given
-        // data
-        Giver giver = Giver.builder()
-                .name("할명수")
-                .company("무한상사")
-                .email("audtn@gmail.com")
-                .businessNum("1234523422")
-                .picture("default.jpg")
-                .build();
-
-        giverRepository.save(giver);
-
-        String name = "글쓰기의 요소";
-        Integer price = 8000;
-        String details = "글쓰기가 무엇인지 보여드립니다.";
-
-        Products productEntity = PostProductRequestDto.builder()
-                .giver(giver)
-                .name(name)
-                .price(price)
-                .details(details)
-                .categories(Categories.CLOTHING)
-                .build().toEntity();
-
-        // insert data
-        productsRepository.save(productEntity);
-
-        Long updateId = productEntity.getId();
+        long updateId = 1L;
 
         String url ="http://localhost:"+port+"/api/v1/products/"+updateId;
 
@@ -154,37 +128,10 @@ public class ProductsApiControllerTest {
 
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void givenProductId_whenDeleteRequest_thenDeleted() throws Exception{
 
-        // given
-        // data
-        Giver giver = Giver.builder()
-                .name("할명수")
-                .company("무한상사")
-                .email("audtn@gmail.com")
-                .businessNum("1234523422")
-                .picture("default.jpg")
-                .build();
-
-        giverRepository.save(giver);
-
-        String name = "글쓰기의 요소";
-        Integer price = 8000;
-        String details = "글쓰기가 무엇인지 보여드립니다.";
-
-        Products productEntity = PostProductRequestDto.builder()
-                .giver(giver)
-                .name(name)
-                .price(price)
-                .details(details)
-                .categories(Categories.CLOTHING)
-                .build().toEntity();
-
-        // insert data
-        productsRepository.save(productEntity);
-
-        Long deleteId = productEntity.getId();
+        long deleteId = 1L;
 
         String url ="http://localhost:"+port+"/api/v1/products/"+deleteId;
 
@@ -192,59 +139,18 @@ public class ProductsApiControllerTest {
         mockMvc.perform(delete(url)).andExpect(status().isOk());
 
         //then
-        List<Products> list = productsRepository.findAll();
-        assertThat(list).isEmpty();
-        assertThat(giver).isNotNull();
+        Products deletedProduct = productsRepository.findById(deleteId).orElseThrow(()-> new IllegalArgumentException("error"));
     }
 
     @Test
     @Transactional
     public void givenGiver_whenGetRequest_thenListIsReturned() throws Exception{
 
-        //given
-        Giver giver = Giver.builder()
-                .name("할명수")
-                .company("무한상사")
-                .email("audtn@gmail.com")
-                .businessNum("1234523422")
-                .picture("default.jpg")
-                .build();
-
-        giverRepository.save(giver);
-
-        String name = "글쓰기의 요소";
-        Integer price = 8000;
-        String details = "글쓰기가 무엇인지 보여드립니다.";
-
-        Products product1 = PostProductRequestDto.builder()
-                .giver(giver)
-                .name(name)
-                .price(price)
-                .details(details)
-                .categories(Categories.CLOTHING)
-                .build().toEntity();
-
-        String name2 = "돈키호테";
-        Integer price2 = 9500;
-        String details2 = "눈물없인 볼 수 없다";
-
-        Products product2 = PostProductRequestDto.builder()
-                .giver(giver)
-                .name(name2)
-                .price(price2)
-                .categories(Categories.CLOTHING_SOCKS)
-                .details(details2)
-                .build().toEntity();
-
-        productsRepository.save(product1);
-        productsRepository.save(product2);
-
         Giver giverEntity = giverRepository.findById(1L).orElseThrow(()->new IllegalArgumentException("no"));
-        giverEntity.addProduct(product1);
-        giverEntity.addProduct(product2);
         Long giverId = giverEntity.getId();
-
-        String url = "http://localhost:"+ port +"/api/v1/giver/products2/"+giverId;
+        System.out.println(giverId);
+        System.out.println(giverEntity.getName());
+        String url = "http://localhost:"+ port +"/api/v1/giver/products/"+giverId;
 
         //when
         mockMvc.perform(get(url)).andExpect(status().isOk()).andDo(print());

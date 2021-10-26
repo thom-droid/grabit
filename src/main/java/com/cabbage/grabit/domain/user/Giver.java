@@ -28,7 +28,7 @@ public class Giver {
     @Column
     private String picture;
 
-    @Column(nullable = false, length = 10)
+    @Column(name = "business_num", nullable = false, length = 10)
     private String businessNum;
 
     @Column(nullable = false)
