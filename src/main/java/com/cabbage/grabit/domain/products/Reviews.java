@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 @Getter
 @NoArgsConstructor
-@Entity
+//@Entity
 public class Reviews {
 
     @Id

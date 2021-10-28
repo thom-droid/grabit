@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
-@Entity
+//@Entity
 public class Replies {
 
     @Id
