@@ -157,5 +157,16 @@ public class ProductsApiControllerTest {
 
     }
 
+    @Test
+    public void whenGetRequest_thenIsProductPaged() throws Exception {
+
+        int page = 1;
+        String url = "http://localhost:"+port+"/api/v1/products?page="+page;
+
+        //when
+        mockMvc.perform(get(url)).andExpect(status().isOk()).andDo(print());
+
+    }
+
 
 }
