@@ -8,32 +8,16 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
+@DiscriminatorValue("TAKER")
 @Entity
-public class Taker {
+public class Taker extends Member {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
-    private String email;
-
-    @Column
-    private String picture;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
+    private String nickname;
 
     @Builder
-    public Taker(String name, String email, String picture, Role role) {
-        this.name = name;
-        this.email = email;
-        this.picture = picture;
-        this.role = role;
+    public Taker(String name, String email, String picture, Role role, String nickname) {
+        super(name, email, picture, Role.ROLE_TAKER);
+        this.nickname = nickname;
     }
 
 
