@@ -10,20 +10,12 @@ import java.math.BigDecimal;
 
 @Getter
 @NoArgsConstructor
-//@Entity
-public class Reviews {
+@Entity
+public class ProductReview {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name="PRODUCTS_ID", nullable = false)
-    private Products products;
-
-    @ManyToOne
-    @JoinColumn(name ="TAKER_ID", nullable = false)
-    private Taker taker;
 
     @Column(nullable = false)
     private String content;
@@ -31,9 +23,20 @@ public class Reviews {
     @Column(nullable = false, precision = 1)
     private BigDecimal rate;
 
+    @ManyToOne
+    @JoinColumn(name="PRODUCTS_ID", nullable = false)
+    private Product product;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name ="TAKER_ID", nullable = false)
+    private Taker taker;
+
+    @OneToOne(mappedBy = "productReview")
+    private Reply reply;
+
     @Builder
-    public Reviews(Products products, Taker taker, String content, BigDecimal rate) {
-        this.products = products;
+    public ProductReview(Product product, Taker taker, String content, BigDecimal rate) {
+        this.product = product;
         this.taker = taker;
         this.content = content;
         this.rate = rate;
