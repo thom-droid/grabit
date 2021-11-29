@@ -3,7 +3,7 @@ package com.cabbage.grabit.domain.products;
 import lombok.Getter;
 
 @Getter
-public enum Categories {
+public enum Category {
 
     CLOTHING,
     CLOTHING_SOCKS,
@@ -16,5 +16,6 @@ public enum Categories {
     LIVING_WASHING,
     LIVING_DAILY_SUPPLIES,
     ETC;
+
 
 }

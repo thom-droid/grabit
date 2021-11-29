@@ -2,6 +2,7 @@ package com.cabbage.grabit.domain.user;
 
 import com.cabbage.grabit.domain.BaseTimeEntity;
 import com.cabbage.grabit.domain.products.Product;
+import com.cabbage.grabit.domain.products.Reply;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,12 +25,18 @@ public class Giver extends Member {
     @Column(nullable = false)
     private String company;
 
-    @OneToMany(mappedBy = "giver", fetch = FetchType.LAZY)
-    private List<Product> products = new ArrayList<>();
+    @OneToMany(mappedBy = "giver", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @Builder.Default
+    private final List<Product> productList = new ArrayList<>();
 
-    public void addProduct(Product product){
-        this.products.add(product);
-    }
+    @OneToMany(mappedBy = "giver", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @Builder.Default
+    private final List<Reply> replyList = new ArrayList<>();
+
+
+//    public void addProduct(Product product){
+//        this.products.add(product);
+//    }
 
     @Builder
     public Giver(String name, String email, String picture, String businessNum, String company) {

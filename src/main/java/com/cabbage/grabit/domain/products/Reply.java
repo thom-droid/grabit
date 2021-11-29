@@ -8,18 +8,22 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
-//@Entity
-public class Replies {
+@Entity
+public class Reply {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private String content;
 
     @ManyToOne
     @JoinColumn(name = "TAKER_ID")
     private Taker taker;
 
-    @Column(nullable = false)
-    private String content;
+    @MapsId
+    @OneToOne
+    @JoinColumn(name = "REVIEW_ID")
+    private ProductReview productReview;
 
 }

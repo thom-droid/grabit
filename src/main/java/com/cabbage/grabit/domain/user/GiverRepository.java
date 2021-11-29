@@ -7,5 +7,4 @@ import java.util.Optional;
 public interface GiverRepository extends JpaRepository<Giver, Long> {
 
     Optional<Giver> findByEmail(String email);
-
 }
