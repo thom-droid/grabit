@@ -12,15 +12,15 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
-    public Giver dummyGiver(){
-
-        return Giver.builder()
-                .name("할명수")
-                .company("무한상사")
-                .email("audtn@gmail.com")
-                .businessNum("1234523422")
-                .picture("default.jpg")
-                .build();
-    }
+//    @Bean
+//    public Giver dummyGiver(){
+//
+//        return Giver.builder()
+//                .name("할명수")
+//                .company("무한상사")
+//                .email("audtn@gmail.com")
+//                .businessNum("1234523422")
+//                .picture("default.jpg")
+//                .build();
+//    }
 }

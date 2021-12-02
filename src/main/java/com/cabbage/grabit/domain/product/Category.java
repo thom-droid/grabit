@@ -1,4 +1,4 @@
-package com.cabbage.grabit.domain.products;
+package com.cabbage.grabit.domain.product;
 
 import lombok.Getter;
 

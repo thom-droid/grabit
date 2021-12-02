@@ -1,8 +1,10 @@
-package com.cabbage.grabit.domain.products;
+package com.cabbage.grabit.domain.product;
 
 import com.cabbage.grabit.domain.BaseTimeEntity;
+import com.cabbage.grabit.domain.product.dto.PostProductRequestDto;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.user.Giver;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +17,10 @@ import java.util.Set;
 
 @Getter
 @NoArgsConstructor
-@Entity
+@AllArgsConstructor
+@Builder
 @Table(name = "PRODUCT")
+@Entity
 public class Product extends BaseTimeEntity {
 
     @Id
@@ -58,18 +62,12 @@ public class Product extends BaseTimeEntity {
     @Builder.Default
     private final List<ProductReview> productReviewList = new ArrayList<>();
 
-    @Builder
-    public Product(Giver giver, Category category, String image, String name, Integer price, String details, Set<Region> regions) {
-        this.giver = giver;
-        this.category = category;
-        this.image = image;
-        this.name = name;
-        this.price = price;
-        this.details = details;
-        this.saleStatus = true;
-        this.regions.addAll(regions);
-        if(!giver.getProductList().contains(this))
-            giver.getProductList().add(this);
+    public static Product create(Giver giver, Set<Region> regionSet, PostProductRequestDto requestDto){
+        Product product = requestDto.toEntity();
+        product.giver = giver;
+        product.getRegions().addAll(regionSet);
+
+        return product;
     }
 
     public void switchStatus(){

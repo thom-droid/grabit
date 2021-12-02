@@ -1,8 +1,8 @@
 package com.cabbage.grabit.domain.user;
 
-import com.cabbage.grabit.domain.BaseTimeEntity;
-import com.cabbage.grabit.domain.products.Product;
-import com.cabbage.grabit.domain.products.Reply;
+import com.cabbage.grabit.domain.product.Product;
+import com.cabbage.grabit.domain.product.Reply;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
-@Entity
+@AllArgsConstructor
 @DiscriminatorValue("GIVER")
 @Table(name="GIVER")
+@Entity
 public class Giver extends Member {
 
     @Column(name = "business_num", nullable = false, length = 10)
@@ -26,17 +26,12 @@ public class Giver extends Member {
     private String company;
 
     @OneToMany(mappedBy = "giver", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @Builder.Default
+//    @Builder.Default
     private final List<Product> productList = new ArrayList<>();
 
     @OneToMany(mappedBy = "giver", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    @Builder.Default
+//    @Builder.Default
     private final List<Reply> replyList = new ArrayList<>();
-
-
-//    public void addProduct(Product product){
-//        this.products.add(product);
-//    }
 
     @Builder
     public Giver(String name, String email, String picture, String businessNum, String company) {
@@ -44,7 +39,5 @@ public class Giver extends Member {
         this.businessNum = businessNum;
         this.company = company;
     }
-
-
 }
 

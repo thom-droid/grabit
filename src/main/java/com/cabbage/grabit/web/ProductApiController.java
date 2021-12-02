@@ -1,9 +1,9 @@
 package com.cabbage.grabit.web;
 
-import com.cabbage.grabit.domain.products.Products;
-import com.cabbage.grabit.domain.products.ProductsRepository;
-import com.cabbage.grabit.service.products.ProductsService;
-import com.cabbage.grabit.web.dto.request.PostProductRequestDto;
+import com.cabbage.grabit.domain.product.ProductRepository;
+import com.cabbage.grabit.service.products.ProductFacade;
+import com.cabbage.grabit.service.products.ProductService;
+import com.cabbage.grabit.domain.product.dto.PostProductRequestDto;
 import com.cabbage.grabit.web.dto.response.ProductListResponseDto;
 import com.cabbage.grabit.web.dto.response.ProductResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -23,54 +23,58 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/products")
-public class ProductsApiController {
+public class ProductApiController {
 
-    private final ProductsService productsService;
-    private final ProductsRepository productsRepository;
+    private final ProductService productService;
+    private final ProductFacade productFacade;
+    private final ProductRepository productRepository;
 
     @PostMapping
     public Long save(@RequestBody PostProductRequestDto requestDto){
-        return productsService.postProduct(requestDto);
+
+        return productFacade.postProduct(requestDto);
     }
 
     @PutMapping("/{id}")
     public Long switchStatus(@PathVariable Long id){
-        return productsService.switchStatus(id);
+        return productService.switchStatus(id);
     }
 
     @DeleteMapping("/{id}")
     public Long delete(@PathVariable Long id){
-        productsService.delete(id);
+        productService.delete(id);
         return id;
     }
 
     @GetMapping("/giver/{giverId}")
     public List<ProductResponseDto> findMyProducts(@PathVariable Long giverId){
-        return productsService.selectProductListByGiver(giverId);
+        return productService.selectProductListByGiver(giverId);
     }
 
     @GetMapping
     public ResponseEntity<Map<String,Object>> findAllProducts(
             @RequestParam(required = false) String sortByPrice,
+            @RequestParam(required = false) String category,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size
     ){
         try{
             List<ProductListResponseDto> productsList = new ArrayList<>();
-            Pageable paging = PageRequest.of(page, size);
-
+            Pageable paging;
             Page<ProductListResponseDto> pageProductList;
 
-            if (sortByPrice==null){
-                pageProductList = productsRepository.findAll(paging).map(ProductListResponseDto::new);
-            }
-            else if (sortByPrice.equals("ASC")) {
+            if(sortByPrice == null){
+                paging = PageRequest.of(page, size);
+            } else if (sortByPrice.equals("ASC")) {
                 paging = PageRequest.of(page, size, Sort.by("price").ascending());
-                pageProductList = productsRepository.findAll(paging).map(ProductListResponseDto::new);
-            }
-            else {
+            } else {
                 paging = PageRequest.of(page, size, Sort.by("price").descending());
-                pageProductList = productsRepository.findAll(paging).map(ProductListResponseDto::new);
+            }
+
+            if(category==null){
+                pageProductList = productRepository.findAll(paging).map(ProductListResponseDto::new);
+            } else {
+                pageProductList = productRepository.findByCategoriesContaining(category, paging).map(ProductListResponseDto::new);
             }
 
             productsList = pageProductList.getContent();
@@ -84,6 +88,7 @@ public class ProductsApiController {
             return new ResponseEntity<>(response, HttpStatus.OK);
 
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -1,6 +1,9 @@
-package com.cabbage.grabit.domain.products;
+package com.cabbage.grabit.domain.product;
 
+import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.Taker;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +11,8 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Reply {
 
@@ -18,8 +23,8 @@ public class Reply {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "TAKER_ID")
-    private Taker taker;
+    @JoinColumn(name = "GIVER_ID")
+    private Giver giver;
 
     @MapsId
     @OneToOne

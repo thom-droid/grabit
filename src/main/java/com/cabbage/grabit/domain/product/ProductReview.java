@@ -1,6 +1,7 @@
-package com.cabbage.grabit.domain.products;
+package com.cabbage.grabit.domain.product;
 
 import com.cabbage.grabit.domain.user.Taker;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,8 @@ import java.math.BigDecimal;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class ProductReview {
 
@@ -24,21 +27,14 @@ public class ProductReview {
     private BigDecimal rate;
 
     @ManyToOne
-    @JoinColumn(name="PRODUCTS_ID", nullable = false)
+    @JoinColumn(name="PRODUCT_ID", nullable = false)
     private Product product;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="TAKER_ID", nullable = false)
     private Taker taker;
 
     @OneToOne(mappedBy = "productReview")
     private Reply reply;
 
-    @Builder
-    public ProductReview(Product product, Taker taker, String content, BigDecimal rate) {
-        this.product = product;
-        this.taker = taker;
-        this.content = content;
-        this.rate = rate;
-    }
 }

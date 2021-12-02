@@ -1,6 +1,8 @@
 package com.cabbage.grabit.domain.user;
 
 import com.cabbage.grabit.domain.BaseTimeEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
