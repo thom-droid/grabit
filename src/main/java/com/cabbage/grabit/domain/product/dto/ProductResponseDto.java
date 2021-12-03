@@ -1,4 +1,4 @@
-package com.cabbage.grabit.web.dto.response;
+package com.cabbage.grabit.domain.product.dto;
 
 import com.cabbage.grabit.domain.product.Product;
 import lombok.Getter;

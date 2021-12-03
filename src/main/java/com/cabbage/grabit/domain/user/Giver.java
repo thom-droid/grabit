@@ -26,11 +26,9 @@ public class Giver extends Member {
     private String company;
 
     @OneToMany(mappedBy = "giver", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-//    @Builder.Default
     private final List<Product> productList = new ArrayList<>();
 
     @OneToMany(mappedBy = "giver", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-//    @Builder.Default
     private final List<Reply> replyList = new ArrayList<>();
 
     @Builder

@@ -1,11 +1,12 @@
 package com.cabbage.grabit.web;
 
 import com.cabbage.grabit.domain.product.ProductRepository;
+import com.cabbage.grabit.exception.ApiResult;
+import com.cabbage.grabit.exception.ApiStatus;
 import com.cabbage.grabit.service.products.ProductFacade;
 import com.cabbage.grabit.service.products.ProductService;
 import com.cabbage.grabit.domain.product.dto.PostProductRequestDto;
-import com.cabbage.grabit.web.dto.response.ProductListResponseDto;
-import com.cabbage.grabit.web.dto.response.ProductResponseDto;
+import com.cabbage.grabit.domain.product.dto.ProductListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,14 +31,14 @@ public class ProductApiController {
     private final ProductRepository productRepository;
 
     @PostMapping
-    public Long save(@RequestBody PostProductRequestDto requestDto){
+    public ApiResult save(@RequestBody PostProductRequestDto requestDto){
 
-        return productFacade.postProduct(requestDto);
+        return ApiResult.of(ApiStatus.SUCCESS, productFacade.postProduct(requestDto));
     }
 
     @PutMapping("/{id}")
-    public Long switchStatus(@PathVariable Long id){
-        return productService.switchStatus(id);
+    public ApiResult switchStatus(@PathVariable Long id){
+        return ApiResult.of(ApiStatus.SUCCESS, productService.switchStatus(id));
     }
 
     @DeleteMapping("/{id}")
@@ -47,50 +48,45 @@ public class ProductApiController {
     }
 
     @GetMapping("/giver/{giverId}")
-    public List<ProductResponseDto> findMyProducts(@PathVariable Long giverId){
-        return productService.selectProductListByGiver(giverId);
+    public ApiResult findMyProducts(@PathVariable Long giverId){
+        return ApiResult.of(ApiStatus.SUCCESS, productService.selectProductListByGiver(giverId));
     }
 
     @GetMapping
-    public ResponseEntity<Map<String,Object>> findAllProducts(
+    public ApiResult findAllProducts(
             @RequestParam(required = false) String sortByPrice,
             @RequestParam(required = false) String category,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size
     ){
-        try{
-            List<ProductListResponseDto> productsList = new ArrayList<>();
-            Pageable paging;
-            Page<ProductListResponseDto> pageProductList;
 
-            if(sortByPrice == null){
-                paging = PageRequest.of(page, size);
-            } else if (sortByPrice.equals("ASC")) {
-                paging = PageRequest.of(page, size, Sort.by("price").ascending());
-            } else {
-                paging = PageRequest.of(page, size, Sort.by("price").descending());
-            }
+        return ApiResult.of(ApiStatus.SUCCESS, productFacade.getAllProducts(sortByPrice, category, page, size));
+//            List<ProductListResponseDto> productsList = new ArrayList<>();
 
-            if(category==null){
-                pageProductList = productRepository.findAll(paging).map(ProductListResponseDto::new);
-            } else {
-                pageProductList = productRepository.findByCategoriesContaining(category, paging).map(ProductListResponseDto::new);
-            }
+//            Page<ProductListResponseDto> pageProductList;
 
-            productsList = pageProductList.getContent();
 
-            Map<String, Object> response = new HashMap<>();
-            response.put("products", productsList);
-            response.put("currentPage", pageProductList.getNumber());
-            response.put("totalItem", pageProductList.getTotalElements());
-            response.put("totalPages", pageProductList.getTotalPages());
 
-            return new ResponseEntity<>(response, HttpStatus.OK);
+//            if(category==null){
+//                pageProductList = productRepository.findAll(paging).map(ProductListResponseDto::new);
+//            } else {
+//                pageProductList = productRepository.findByCategoriesContaining(category, paging).map(ProductListResponseDto::new);
+//            }
+//
+//            productsList = pageProductList.getContent();
+//
+//            Map<String, Object> response = new HashMap<>();
+//            response.put("products", productsList);
+//            response.put("currentPage", pageProductList.getNumber());
+//            response.put("totalItem", pageProductList.getTotalElements());
+//            response.put("totalPages", pageProductList.getTotalPages());
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+//            return new ResponseEntity<>(response, HttpStatus.OK);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
     }
 
 }
