@@ -1,12 +1,15 @@
-package com.cabbage.grabit.web.dto.response;
+package com.cabbage.grabit.domain.product.dto;
 
 import com.cabbage.grabit.domain.user.Giver;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ProductGiverResponseDto {
 
     private Long id;
@@ -14,7 +17,6 @@ public class ProductGiverResponseDto {
     private String picture;
     private String company;
 
-    @Builder
     public ProductGiverResponseDto(Giver giver) {
         this.id = giver.getId();
         this.name = giver.getName();

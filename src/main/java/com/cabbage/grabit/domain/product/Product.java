@@ -63,9 +63,18 @@ public class Product extends BaseTimeEntity {
     private final List<ProductReview> productReviewList = new ArrayList<>();
 
     public static Product create(Giver giver, Set<Region> regionSet, PostProductRequestDto requestDto){
-        Product product = requestDto.toEntity();
-        product.giver = giver;
-        product.getRegions().addAll(regionSet);
+        Product product = PostProductRequestDto.builder()
+                .giver(giver)
+                .category(requestDto.getCategory())
+                .details(requestDto.getDetails())
+                .image(requestDto.getImage())
+                .name(requestDto.getName())
+                .price(requestDto.getPrice())
+                .regions(regionSet)
+                .build()
+                .toEntity();
+
+        giver.getProductList().add(product);
 
         return product;
     }

@@ -4,6 +4,7 @@ import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.product.Category;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.user.Giver;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,8 @@ import java.util.Set;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PostProductRequestDto {
 
     private Giver giver;
@@ -23,26 +26,18 @@ public class PostProductRequestDto {
     private Integer price;
     private String image;
     private String details;
+    @Builder.Default
     private Set<Region> regions = new HashSet<>();
-
-    @Builder
-    public PostProductRequestDto(Giver giver, Category category, String name, Integer price, String image, String details, Set<Region> regions) {
-        this.giver = giver;
-        this.category = category;
-        this.name = name;
-        this.price = price;
-        this.image = image;
-        this.details = details;
-//        this.regions.addAll(regions);
-    }
 
     public Product toEntity(){
         return Product.builder()
+                .giver(giver)
                 .details(details)
                 .category(category)
                 .name(name)
                 .price(price)
                 .image(image)
+                .regions(regions)
                 .build();
     }
 }

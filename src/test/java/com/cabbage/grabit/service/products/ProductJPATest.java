@@ -6,16 +6,15 @@ import com.cabbage.grabit.domain.product.ProductRepository;
 import com.cabbage.grabit.domain.user.Giver;
 
 import com.cabbage.grabit.domain.user.GiverRepository;
-import com.cabbage.grabit.domain.product.dto.PostProductRequestDto;
-import com.cabbage.grabit.web.dto.response.ProductResponseDto;
+import com.cabbage.grabit.domain.product.dto.ProductResponseDto;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,36 +31,37 @@ public class ProductJPATest {
     @Autowired
     private GiverRepository giverRepository;
 
-//    private Giver giver = Giver.builder()
-//            .name("할명수")
-//            .company("무한상사")
-//            .email("audtn@gmail.com")
-//            .businessNum("1234523422")
-//            .picture("default.jpg")
-//            .build();
-
     private String name = "글쓰기의 요소";
     private Integer price = 8000;
     private String details = "글쓰기가 무엇인지 보여드립니다.";
+    private String image = "image";
 
-//    @Before
-//    public void setupDummy(){
-//
-//        giverRepository.save(giver);
-//
-//        Product product1 = PostProductRequestDto.builder()
-//                .giver(giver)
-//                .categories(Categories.CLOTHING)
-//                .details(details)
-//                .price(price)
-//                .name(name)
-//                .build().toEntity();
-//
-//        giver.addProduct(product1);
-//
-//        productsRepository.save(product1);
-//
-//    }
+    @Before
+    public void setupDummy(){
+        Giver giver = Giver.builder()
+                .name("할명수")
+                .company("무한상사")
+                .email("audtn@gmail.com")
+                .businessNum("1234523422")
+                .picture("default.jpg")
+                .build();
+
+        Giver mergedGiver = giverRepository.save(giver);
+
+        Product product1 = Product.builder()
+                .giver(mergedGiver)
+                .details(details)
+                .category(Category.CLOTHING)
+                .image(image)
+                .name(name)
+                .price(price)
+                .build();
+
+        mergedGiver.getProductList().add(product1);
+
+        productRepository.save(product1);
+
+    }
 
     @After
     public void cleanup(){
@@ -87,29 +87,31 @@ public class ProductJPATest {
         String name2 = "돈키호테";
         Integer price2 = 9500;
         String details2 = "눈물없인 볼 수 없다";
+        String image = "image2";
+
         Giver giver = giverRepository.findById(1L).orElseThrow(()->new IllegalArgumentException("none"));
-        Product product2 = PostProductRequestDto.builder()
-                .giver(giver)
+
+        Product product2 = Product.builder()
                 .name(name2)
                 .price(price2)
-                .category(Category.CLOTHING_SOCKS)
                 .details(details2)
-                .build().toEntity();
+                .image(image)
+                .giver(giver)
+                .category(Category.CLOTHING)
+                .build();
+        giver.getProductList().add(product2);
         // save
         productRepository.save(product2);
 
-        Giver giverEntity = giverRepository.findById(1L).orElseThrow(()-> new IllegalArgumentException("error"));
-        //giverEntity.addProduct(product2);
+        List<Product> productList = giver.getProductList();
 
-        List<Product> productList = giverEntity.getProductList();
-        List<ProductResponseDto> list = new ArrayList<>();
+        productList.forEach(p -> {
+            System.out.println(p.toString());
+                }
+        );
+        assertThat(productList.get(0).getName()).isEqualTo(name);
+        assertThat(productList.get(1).getName()).isEqualTo(name2);
 
-        for(Product product : productList){
-            list.add(new ProductResponseDto(product));
-        }
-
-        assertThat(list.get(0).getName()).isEqualTo(name);
-        assertThat(list.get(1).getName()).isEqualTo(name2);
 
     }
 

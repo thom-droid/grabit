@@ -3,6 +3,8 @@ package com.cabbage.grabit.web;
 import com.cabbage.grabit.domain.product.Category;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product.ProductRepository;
+import com.cabbage.grabit.domain.shipment.Region;
+import com.cabbage.grabit.domain.shipment.RegionRepository;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.GiverRepository;
 import com.cabbage.grabit.domain.product.dto.PostProductRequestDto;
@@ -24,12 +26,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -40,19 +47,10 @@ public class ProductApiControllerTest {
     @Autowired
     private WebApplicationContext wac;
 
+    @Autowired
+    EntityManager em;
+
     private MockMvc mockMvc;
-
-    @Bean
-    public Giver dummyGiver(){
-
-        return Giver.builder()
-                .name("할명수")
-                .company("무한상사")
-                .email("audtn@gmail.com")
-                .businessNum("1234523422")
-                .picture("default.jpg")
-                .build();
-    }
 
     @LocalServerPort
     private int port;
@@ -62,6 +60,9 @@ public class ProductApiControllerTest {
 
     @Autowired
     private GiverRepository giverRepository;
+
+    @Autowired
+    private RegionRepository regionRepository;
 
     @Before
     public void setup(){
@@ -75,9 +76,12 @@ public class ProductApiControllerTest {
     }
 
     @Test
+    @Transactional
     public void givenProducts_whenPostMapping_thenPostProduct() throws Exception{
 
         //given
+
+        //giver
         Giver giver = Giver.builder()
                 .name("할명수")
                 .company("무한상사")
@@ -86,12 +90,30 @@ public class ProductApiControllerTest {
                 .picture("default.jpg")
                 .build();
 
-        Giver mergedGiver = giverRepository.save(giver);
-//        Giver giver = giverRepository.findById(1L).orElseThrow(()-> new IllegalArgumentException("no"));
+        giver = giverRepository.save(giver);
+
+        // product
         String name = "글쓰기의 요소";
         Integer price = 8000;
         String details = "글쓰기가 무엇인지 보여드립니다.";
         String image = "image.jpg";
+
+        // region
+        Set<Region> regionSet = new HashSet<>();
+        Region region = new Region();
+        region.setSido("서울");
+        region.setGugun("마포구");
+        Region region1 = new Region();
+        region1.setSido("마포대교는");
+        region1.setGugun("무너졌냐 이 시끼야");
+
+        regionSet.add(region);
+        regionSet.add(region1);
+
+        regionRepository.save(region);
+        regionRepository.save(region1);
+
+
 
         PostProductRequestDto requestDto =
                 PostProductRequestDto.builder()
@@ -101,6 +123,7 @@ public class ProductApiControllerTest {
                 .price(price)
                 .category(Category.CLOTHING)
                 .image(image)
+                .regions(regionSet)
                 .build();
 
         String url ="http://localhost:"+port+ "/api/v1/products";
@@ -111,12 +134,22 @@ public class ProductApiControllerTest {
 
         //then
         List<Product> productList = productRepository.findAll();
+        List<Giver> givers = giverRepository.findAll();
+        givers.forEach(g -> System.out.println(g.getId()));
+        Giver giver1 = giverRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("nn"));
+
+        System.out.println("is loaded " +em.getEntityManagerFactory().getPersistenceUnitUtil().isLoaded(giver1));
 
         assertEquals(productList.get(0).getName(), name);
         assertEquals(productList.get(0).getPrice(), price);
         assertEquals(productList.get(0).getDetails(), details);
-        assertEquals(productList.get(0).getGiver().getId(), mergedGiver.getId());
-        System.out.println(mergedGiver.getProductList());
+        assertEquals(productList.get(0).getGiver().getId(), giver.getId());
+        productList.get(0).getRegions().forEach(r ->{
+            System.out.println(r.getSido());
+            System.out.println(r.getGugun());
+        });
+        System.out.println(giver1.getProductList().get(0).getName());
+        System.out.println(giver==giver1);
 
     }
 

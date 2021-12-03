@@ -2,15 +2,19 @@ package com.cabbage.grabit.service.products;
 
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product.ProductRepository;
+import com.cabbage.grabit.domain.product.dto.ProductListResponseDto;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.GiverRepository;
 import com.cabbage.grabit.domain.product.dto.PostProductRequestDto;
-import com.cabbage.grabit.web.dto.response.ProductResponseDto;
+import com.cabbage.grabit.domain.product.dto.ProductResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,8 +26,9 @@ public class ProductService {
     private final GiverRepository giverRepository;
 
     @Transactional
-    public Long postProduct(Giver giver, Set<Region> regionSet, PostProductRequestDto requestDto){
+        public Long postProduct(Giver giver, Set<Region> regionSet, PostProductRequestDto requestDto){
         Product product = Product.create(giver, regionSet, requestDto);
+
         return productRepository.save(product).getId();
     }
 
@@ -50,6 +55,17 @@ public class ProductService {
         return null;
 //                giverEntity.getProducts().stream().map(ProductResponseDto::new).collect(Collectors.toList());
 
+    }
+
+    public Page<ProductListResponseDto> getAllProducts(String category, Pageable paging){
+
+        Page<ProductListResponseDto> responseDto;
+
+        if(category == null){
+            return responseDto = productRepository.findAll(paging).map(ProductListResponseDto::new);
+        }
+
+        return responseDto = productRepository.findByCategoriesContaining(category, paging).map(ProductListResponseDto::new);
     }
 
 
