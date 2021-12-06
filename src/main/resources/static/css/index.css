@@ -1,0 +1,318 @@
+@charset "UTF-8";
+html{
+	box-sizing: box-content;
+}
+body{
+	font-family: "AppleSDGothic", sans-serif;
+	margin: auto;
+	width: 100%;
+}
+#container {
+	width: 100%;
+}
+
+#hero_img_content {
+	position: relative;
+	height: calc(100vh - 80px);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-image: url("/img/resource/hero_img.jpg");
+	overflow: hidden;
+}
+
+.hero_cover {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top:0;
+	background-color: #424242;
+	opacity: 0.35;
+	z-index: 1;
+}
+
+.hero_comment_wrap {
+	user-select: none;
+	display: inline-block;
+	position: relative;
+	left: 50%;
+	top: 50%;
+	margin-left: -200px;
+	margin-top: -80px;
+	z-index: 5;
+}
+
+.msg {
+	color: #fff;
+	font-weight: 100;
+}
+
+.main_msg {
+	font-size: 50px;
+	line-height: 60px;
+}
+
+.sub_msg {
+	text-decoration: none;
+	margin-top: 30px;
+	font-size: 18px;
+}
+
+.menu_list{
+	display: grid;
+	grid: auto-flow / 1fr 1fr 1fr 1fr;
+}
+
+.main_menu_wrap {
+	position: relative;
+	height: 350px;
+	margin-top: 50px;
+	user-select: none;
+}
+
+.main_menu_wrap a {
+	text-decoration: none;
+	color: #424242;
+	font-size: 30px;
+}
+
+.main_menu_wrap li {
+	margin-left: 20px;
+}
+
+.menu_box {
+	width: 250px;
+	height: 310px;
+	overflow: hidden;
+}
+
+.menu_box > img{
+	display: block;
+}
+
+
+.best_seller_content {
+	position: relative;
+	width: 100%;
+    margin: 75px auto 0 auto;
+}
+
+.best_seller_p{
+    font-size: 22px;
+    margin-left: 80px;
+}
+
+.best_seller_msg {
+	font-size: 24px;
+	user-select: none;
+}
+
+.best_seller_wrap {
+	margin-top: 80px;
+}
+
+.msg_caption{
+	margin-left: 10px;
+	font-weight: 100;
+}
+
+.slide_box {
+	margin-left: 60px;
+	width: 990px;
+	overflow: hidden;
+}
+
+.slide_box li {
+	margin-right: 30px;
+	float: left;
+}
+
+.slide_box ul {
+	float: left;
+	width: 3960px;
+}
+
+.prev {
+	visibility: hidden;
+}
+
+.next {
+	right: 0;
+}
+
+.kategorie {
+	float: left;
+	display: inline-block;
+	margin-bottom: 20px;
+	width: 1100px;
+	font-size: 25px;
+	text-align: center;
+}
+
+.steady_seller_content {
+	margin-top: 200px;
+	margin-bottom: 100px;
+}
+
+.slide_list {
+	position: relative;
+	user-select: none;
+	transition: ease 0.2s;
+	left: 0;
+}
+
+.slide_list a {
+	text-decoration: none;
+}
+
+.steady_seller_content .btn {
+	position: relative;
+	display: block;
+	width: 100px;
+	height: 40px;
+	color: #fff;
+	background-color: #3C7166;
+	text-decoration: none;
+	line-height: 40px;
+	text-align: center;
+	margin-left: 950px;
+}
+
+.best_seller_wrap .btn {
+	position: absolute;
+	display: block;
+	width: 50px;
+	height: 50px;
+	border: none;
+	background-color: transparent;
+	font-size: 30px;
+	cursor: pointer;
+	top: 360px;
+	user-select: none;
+	outline: none;
+}
+
+.kategorie_box {
+	width: 1100px;
+	overflow: hidden;
+}
+
+.kategorie_list {
+	left: 0;
+	width: 4400px;
+	position: relative;
+	user-select: none;
+	float: left;
+	transition: 0.2s ease;
+}
+
+.slide_list a:hover .subscription_item_price {
+	color: #424242;
+}
+
+.search_result_wrap {
+	min-height: 600px;
+	margin: 30px auto;
+}
+
+/* item list (recently added) */
+
+.view_more_box{
+	text-align: right;
+	margin: 25px 200px 15px 0;
+}
+
+.view_more_box .view_more_btn{
+	color: rgb(0, 87, 217);
+}
+.search_result_list{
+	padding: 0 66px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin-left: 105px;
+	margin-top: 30px;
+}
+
+.search_result_list li {
+	margin: 10px 12px;
+	width: 360px;
+	height: 400px;
+	transition: all 0.3s ease-in-out;
+}
+
+.item_photo{
+	width: 100%;
+	height: 300px;
+	overflow:hidden;
+}
+
+.search_result_list img {
+	width: 360px;
+	height: 300px;
+	transition: all 0.3s ease-in-out;
+}
+
+.search_result_wrap .subscription_item_info {
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 15px 0 0 5px;
+}
+
+.search_result_wrap .subscription_item_label {
+	background-color: #cc5750;
+	color: #f4fffd;
+	width: 45px;
+	height: 23px;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 25px;
+	text-align: center;
+    position: absolute;
+    right: 0;
+    top: 15px;
+    border-radius: 45px;
+}
+
+.search_result_wrap .subscription_item_company {
+	margin-top: 15px;
+}
+
+.subscription_item_name{
+	font-size: 20px;
+    color: #3c7166;
+}
+
+.subscription_item_name>a{
+	color: #3c7166;
+	transition: all 0.3s ease-in-out;
+}
+
+.subscription_item_name>a:hover{
+	color: #A6ABAB;
+}
+
+.search_result_wrap .subscription_item_price {
+	font-size: 18px;
+	color: #A6ABAB;
+	margin-top: 10px;
+	transition: all 0.3s ease-in-out;
+}
+
+
+.search_result_list li:hover  {
+	background-color: white;
+}
+
+.search_result_list li:hover .subscription_item_price{
+	color: #202121;
+}
+
+.item_photo>a {
+	display: block;
+}
+
+.item_photo img:hover{
+	transform: scale(1.1);
+}
+
