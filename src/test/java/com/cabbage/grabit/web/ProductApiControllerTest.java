@@ -113,8 +113,6 @@ public class ProductApiControllerTest {
         regionRepository.save(region);
         regionRepository.save(region1);
 
-
-
         PostProductRequestDto requestDto =
                 PostProductRequestDto.builder()
                 .giver(giver)
@@ -189,11 +187,11 @@ public class ProductApiControllerTest {
     @Transactional
     public void givenGiver_whenGetRequest_thenListIsReturned() throws Exception{
 
-        Giver giverEntity = giverRepository.findById(1L).orElseThrow(()->new IllegalArgumentException("no"));
-        Long giverId = giverEntity.getId();
-        System.out.println(giverId);
-        System.out.println(giverEntity.getName());
-        String url = "http://localhost:"+ port +"/api/v1/giver/products/"+giverId;
+//        Giver giverEntity = giverRepository.findById(1L).orElseThrow(()->new IllegalArgumentException("no"));
+//        Long giverId = giverEntity.getId();
+//        System.out.println(giverId);
+//        System.out.println(giverEntity.getName());
+        String url = "http://localhost:"+ port +"/api/v1/products/giver/1";
 
         //when
         mockMvc.perform(get(url)).andExpect(status().isOk()).andDo(print());
@@ -203,7 +201,68 @@ public class ProductApiControllerTest {
     @Test
     public void whenGetRequest_thenIsProductPaged() throws Exception {
 
+//        //giver
+//        Giver giver = Giver.builder()
+//                .name("할명수")
+//                .company("무한상사")
+//                .email("audtn@gmail.com")
+//                .businessNum("1234523422")
+//                .picture("default.jpg")
+//                .build();
+//
+//        giver = giverRepository.save(giver);
+//
+//        // product
+//        String name = "글쓰기의 요소";
+//        Integer price = 8000;
+//        String details = "글쓰기가 무엇인지 보여드립니다.";
+//        String image = "image.jpg";
+//
+//        // region
+//        Set<Region> regionSet = new HashSet<>();
+//        Region region = new Region();
+//        region.setSido("서울");
+//        region.setGugun("마포구");
+//        Region region1 = new Region();
+//        region1.setSido("마포대교는");
+//        region1.setGugun("무너졌냐 이 시끼야");
+//
+//        region = regionRepository.save(region);
+//        region1 = regionRepository.save(region1);
+//
+//        Product product1 =
+//                Product.builder()
+//                        .giver(giver)
+//                        .name(name)
+//                        .details(details)
+//                        .price(price)
+//                        .category(Category.CLOTHING)
+//                        .image(image)
+//                        .saleStatus(true)
+//                        .build();
+//
+//        product1.getRegions().addAll(regionSet);
+////        product1.getRegions().add(region1);
+//
+//        Product product2 =
+//                Product.builder()
+//                .giver(giver)
+//                .image(image)
+//                .details(details)
+//                .price(price)
+//                .name(name)
+//                .category(Category.FOOD)
+//                .saleStatus(false)
+//                .build();
+//
+//        product2.getRegions().addAll(regionSet);
+////        product2.getRegions().add(region1);
+//
+//        productRepository.save(product1);
+//        productRepository.save(product2);
+
         int page = 1;
+
         Category category = Category.CLOTHING;
         String url = "http://localhost:"+port+"/api/v1/products?page="+page+"&category="+ category;
 

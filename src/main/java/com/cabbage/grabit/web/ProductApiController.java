@@ -48,8 +48,11 @@ public class ProductApiController {
     }
 
     @GetMapping("/giver/{giverId}")
-    public ApiResult findMyProducts(@PathVariable Long giverId){
-        return ApiResult.of(ApiStatus.SUCCESS, productService.selectProductListByGiver(giverId));
+    public ApiResult findMyProducts(@PathVariable Long giverId,
+    @RequestParam(defaultValue = "0") int page,
+    @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable  = PageRequest.of(page, size);
+        return ApiResult.of(ApiStatus.SUCCESS, productService.selectProductListByGiver(giverId, pageable));
     }
 
     @GetMapping
@@ -61,32 +64,6 @@ public class ProductApiController {
     ){
 
         return ApiResult.of(ApiStatus.SUCCESS, productFacade.getAllProducts(sortByPrice, category, page, size));
-//            List<ProductListResponseDto> productsList = new ArrayList<>();
-
-//            Page<ProductListResponseDto> pageProductList;
-
-
-
-//            if(category==null){
-//                pageProductList = productRepository.findAll(paging).map(ProductListResponseDto::new);
-//            } else {
-//                pageProductList = productRepository.findByCategoriesContaining(category, paging).map(ProductListResponseDto::new);
-//            }
-//
-//            productsList = pageProductList.getContent();
-//
-//            Map<String, Object> response = new HashMap<>();
-//            response.put("products", productsList);
-//            response.put("currentPage", pageProductList.getNumber());
-//            response.put("totalItem", pageProductList.getTotalElements());
-//            response.put("totalPages", pageProductList.getTotalPages());
-
-//            return new ResponseEntity<>(response, HttpStatus.OK);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
     }
 
 }

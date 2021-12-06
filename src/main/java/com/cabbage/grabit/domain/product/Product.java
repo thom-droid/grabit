@@ -4,10 +4,7 @@ import com.cabbage.grabit.domain.BaseTimeEntity;
 import com.cabbage.grabit.domain.product.dto.PostProductRequestDto;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.user.Giver;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -43,7 +40,8 @@ public class Product extends BaseTimeEntity {
     @Column(nullable = false)
     private String details;
 
-    @Column(name = "sales_status", nullable = false)
+    @Setter
+    @Column(name = "sale_status", nullable = false)
     private boolean saleStatus;
 
     @Embedded
@@ -54,7 +52,9 @@ public class Product extends BaseTimeEntity {
     private Giver giver;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "REGION_ID", nullable = false)
+    @JoinTable(name = "PRODUCT_REGION",
+        joinColumns = @JoinColumn(name = "PRODUCT_ID"),
+        inverseJoinColumns = @JoinColumn(name = "REGION_ID"))
     @Builder.Default
     private final Set<Region> regions = new HashSet<>();
 
@@ -73,7 +73,7 @@ public class Product extends BaseTimeEntity {
                 .regions(regionSet)
                 .build()
                 .toEntity();
-
+        product.setSaleStatus(true);
         giver.getProductList().add(product);
 
         return product;

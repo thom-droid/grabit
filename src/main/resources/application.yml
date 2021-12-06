@@ -1,0 +1,10 @@
+server:
+  port: 8085
+
+spring:
+  profiles:
+    active: dev
+    inclue: oauth
+  session:
+    store-type: jdbc
+

@@ -50,22 +50,24 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public List<ProductResponseDto> selectProductListByGiver(Long giverId){
-        Giver giverEntity = giverRepository.findById(giverId).orElseThrow(()-> new IllegalArgumentException("error"));
-        return null;
+    public Page<ProductListResponseDto> selectProductListByGiver(Long giverId, Pageable pageable){
+
+        return productRepository.findByGiverId(giverId, pageable).map(ProductListResponseDto::new);
+
+//        Giver giverEntity = giverRepository.findById(giverId).orElseThrow(()-> new IllegalArgumentException("error"));
+//        return null;
 //                giverEntity.getProducts().stream().map(ProductResponseDto::new).collect(Collectors.toList());
 
     }
 
+    @Transactional(readOnly = true)
     public Page<ProductListResponseDto> getAllProducts(String category, Pageable paging){
 
-        Page<ProductListResponseDto> responseDto;
-
         if(category == null){
-            return responseDto = productRepository.findAll(paging).map(ProductListResponseDto::new);
+            return productRepository.findAll(paging).map(ProductListResponseDto::new);
         }
 
-        return responseDto = productRepository.findByCategoriesContaining(category, paging).map(ProductListResponseDto::new);
+        return productRepository.findBySaleStatusAndCategoryContaining(category, paging).map(ProductListResponseDto::new);
     }
 
 
