@@ -1,40 +1,48 @@
 package com.cabbage.grabit.domain.user;
 
+import com.cabbage.grabit.domain.product.ProductReview;
+import com.cabbage.grabit.domain.shipment.ShippingAddress;
+import com.cabbage.grabit.domain.subscription.Subscription;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@DiscriminatorValue("TAKER")
 @Entity
-public class Taker {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Taker extends Member {
 
     @Column(nullable = false)
-    private String name;
+    private String nickname;
 
-    @Column(nullable = false)
-    private String email;
+    @OneToMany(mappedBy = "taker", fetch = FetchType.LAZY)
+    @Builder.Default
+    private final List<ProductReview> productReviewList = new ArrayList<>();
 
-    @Column
-    private String picture;
+    @OneToMany(mappedBy = "taker", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @Builder.Default
+    private final List<ShippingAddress> shippingAddressList = new ArrayList<>();
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
+    @OneToMany(mappedBy = "taker", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @Builder.Default
+    private final List<Subscription> subscriptionList = new ArrayList<>();
 
-    @Builder
-    public Taker(String name, String email, String picture, Role role) {
-        this.name = name;
-        this.email = email;
-        this.picture = picture;
-        this.role = role;
-    }
+
+//    public static Taker createEntity (String name, String email, String picture, Role role, String nickname) {
+//        Taker taker = Taker.builder().nickname(nickname).build();
+//        taker.name = name;
+//
+//        return taker;
+//
+//    }
 
 
 }

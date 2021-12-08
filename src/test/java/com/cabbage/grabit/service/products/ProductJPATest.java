@@ -1,13 +1,12 @@
 package com.cabbage.grabit.service.products;
 
-import com.cabbage.grabit.domain.products.Categories;
-import com.cabbage.grabit.domain.products.Products;
-import com.cabbage.grabit.domain.products.ProductsRepository;
+import com.cabbage.grabit.domain.product.Category;
+import com.cabbage.grabit.domain.product.Product;
+import com.cabbage.grabit.domain.product.ProductRepository;
 import com.cabbage.grabit.domain.user.Giver;
 
 import com.cabbage.grabit.domain.user.GiverRepository;
-import com.cabbage.grabit.web.dto.request.PostProductRequestDto;
-import com.cabbage.grabit.web.dto.response.ProductResponseDto;
+import com.cabbage.grabit.domain.product.dto.ProductResponseDto;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,71 +14,68 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class ProductJPATest {
 
     @Autowired
-    private ProductsRepository productsRepository;
+    private ProductRepository productRepository;
 
     @Autowired
     private GiverRepository giverRepository;
 
-    private Giver giver = Giver.builder()
-            .name("할명수")
-            .company("무한상사")
-            .email("audtn@gmail.com")
-            .businessNum("1234523422")
-            .picture("default.jpg")
-            .build();
-
     private String name = "글쓰기의 요소";
     private Integer price = 8000;
     private String details = "글쓰기가 무엇인지 보여드립니다.";
+    private String image = "image";
 
     @Before
     public void setupDummy(){
+        Giver giver = Giver.builder()
+                .name("할명수")
+                .company("무한상사")
+                .email("audtn@gmail.com")
+                .businessNum("1234523422")
+                .picture("default.jpg")
+                .build();
 
-        giverRepository.save(giver);
+        Giver mergedGiver = giverRepository.save(giver);
 
-        Products product1 = PostProductRequestDto.builder()
-                .giver(giver)
-                .categories(Categories.CLOTHING)
+        Product product1 = Product.builder()
+                .giver(mergedGiver)
                 .details(details)
-                .price(price)
+                .category(Category.CLOTHING)
+                .image(image)
                 .name(name)
-                .build().toEntity();
+                .price(price)
+                .build();
 
-        giver.addProduct(product1);
+        mergedGiver.getProductList().add(product1);
 
-        productsRepository.save(product1);
+        productRepository.save(product1);
 
     }
 
     @After
     public void cleanup(){
-        productsRepository.deleteAll();
+        productRepository.deleteAll();
     }
 
     @Test
     public void givenProduct_thenIsLongReturned() {
 
-        List<Products> productsList = productsRepository.findAll();
+        List<Product> productList = productRepository.findAll();
 
-        assertEquals(productsList.get(0).getName(), name);
-        assertEquals(productsList.get(0).getPrice(), price);
-        assertEquals(productsList.get(0).getDetails(), details);
+        assertEquals(productList.get(0).getName(), name);
+        assertEquals(productList.get(0).getPrice(), price);
+        assertEquals(productList.get(0).getDetails(), details);
 
     }
 
@@ -91,40 +87,42 @@ public class ProductJPATest {
         String name2 = "돈키호테";
         Integer price2 = 9500;
         String details2 = "눈물없인 볼 수 없다";
+        String image = "image2";
 
-        Products product2 = PostProductRequestDto.builder()
-                .giver(giver)
+        Giver giver = giverRepository.findById(1L).orElseThrow(()->new IllegalArgumentException("none"));
+
+        Product product2 = Product.builder()
                 .name(name2)
                 .price(price2)
-                .categories(Categories.CLOTHING_SOCKS)
                 .details(details2)
-                .build().toEntity();
+                .image(image)
+                .giver(giver)
+                .category(Category.CLOTHING)
+                .build();
+        giver.getProductList().add(product2);
         // save
-        productsRepository.save(product2);
+        productRepository.save(product2);
 
-        Giver giverEntity = giverRepository.findById(1L).orElseThrow(()-> new IllegalArgumentException("error"));
-        giverEntity.addProduct(product2);
+        List<Product> productList = giver.getProductList();
 
-        List<Products> productsList = giverEntity.getProducts();
-        List<ProductResponseDto> list = new ArrayList<>();
+        productList.forEach(p -> {
+            System.out.println(p.toString());
+                }
+        );
+        assertThat(productList.get(0).getName()).isEqualTo(name);
+        assertThat(productList.get(1).getName()).isEqualTo(name2);
 
-        for(Products products:productsList){
-            list.add(new ProductResponseDto(products));
-        }
-
-        assertThat(list.get(0).getName()).isEqualTo(name);
-        assertThat(list.get(1).getName()).isEqualTo(name2);
 
     }
 
     @Test
     public void whenReferencingSideIsChanged_thenOwningSideAlsoChanges(){
 
-        Giver giverEntity = giverRepository.getOne(1L);
+        Giver giverEntity = giverRepository.findById(1L).orElseThrow(()->new IllegalArgumentException("none"));;
         giverEntity.updatePicture("myeongsu.jpg");
 
-        Products product = productsRepository.getOne(1L);
-        assertThat(giver.getPicture()).isEqualTo(product.getGiver().getPicture());
+        Product product = productRepository.findById(1L).orElseThrow(()-> new IllegalArgumentException("none"));
+        assertThat(product.getGiver().getPicture()).isEqualTo(product.getGiver().getPicture());
 
     }
 
@@ -132,7 +130,7 @@ public class ProductJPATest {
     public void selectProductsUsingStream() {
 
         Giver giverEntity = giverRepository.getOne(1L);
-        List<ProductResponseDto> responseDtoList = giverEntity.getProducts().stream().map(ProductResponseDto::new).collect(Collectors.toList());
+        List<ProductResponseDto> responseDtoList = giverEntity.getProductList().stream().map(ProductResponseDto::new).collect(Collectors.toList());
 
         for (ProductResponseDto dto : responseDtoList){
             System.out.println(dto.getName());

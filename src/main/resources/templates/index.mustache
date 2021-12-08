@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>grab it</title>
+    {{>layout/link}}
+    <link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body>
+{{>layout/header}}
+<div id="container">
+    <div id="hero_img_content">
+        <div class="hero_comment_wrap">
+            <p class="main_msg msg">구독은 TAKE IT<br/>
+                과 함께
+            </p>
+            <a class="sub_msg" href=""><p class="msg">클릭 한 번으로  편리하게 생활하세요</p></a>
+        </div>
+        <div class="hero_cover"></div>
+    </div>
+    <!--//hero_img_content-->
+    <!--//main_menu_content-->
+    <div class="best_seller_content">
+        <div class="best_seller_box">
+            <p class="best_seller_p"><span class="best_seller_msg">주간 구독 서비스</span><span class="msg_caption">구독 신청이 많은 서비스</span></p>
+        </div>
+        <div class="best_seller_wrap">
+            <div class="kategorie_box">
+                <ul class="kategorie_list">
+                    <li><span class="kategorie">의</span></li>
+                    <li><span class="kategorie">식</span></li>
+                    <li><span class="kategorie">주</span></li>
+                </ul>
+            </div>
+        </div>
+        <!--//best_seller_content-->
+        <div class="steady_seller_content">
+            <div class="best_seller_box">
+                <p class="best_seller_p"><span class="best_seller_msg">최신 서비스</span><span class="msg_caption">최근에 등록된 서비스</span></p>
+            </div>
+            <div class="view_more_box">
+                <a href="/item/list?sort=lat" class="view_more_btn">더보기</a>
+            </div>
+            <div class="search_result_wrap">
+                <ul class="search_result_list">
+                    {{#currentProducts}}
+                        <li>
+                            <!-- <a href=""> -->
+                            <div class="item_photo">
+                                <a href="/taker/subscribe/{{no}}">
+                                    <img src="/img/product/{{photo}}"/>
+                                </a>
+                            </div>
+                            <div class="subscription_item_info"><!--subscription_item_info start -->
+                                <div class="subscription_item_company_and_label"><!--subscription_item_company_and_label start -->
+                                    <div class="subscription_item_name">
+                                        <a href="/taker/subscribe/${currentProduct.no}">{{name}}</a>
+                                    </div>
+                                </div><!--//subscription_item_company_and_label end -->
+                                <div class="subscription_item_label">hot</div>
+                                <div class="subscription_item_company">{{company}}</div>
+                                <div class="subscription_item_price_and_rate_box"><!--subscription_item_price_and_rate_box start -->
+                                    <div class="subscription_item_price">{{price}}</div>
+                                    <div class="subscription_item_rate"><!--subscription_item_rate start -->
+                                        <div class="grade_star box">
+                                            <div class="inner_star box" style="width:{{star}}*20%"></div>
+                                        </div>
+                                    </div><!--//subscription_item_rate end -->
+                                </div><!--//subscription_item_price_and_rate_box end -->
+                            </div><!--//subscription_item_info end -->
+                            <!--  </a> -->
+                        </li>
+                    {{/currentProducts}}
+                </ul>
+            </div>
+        </div>
+        <!--//steady_seller_content-->
+    </div>
+</div> <!-- container -->
+{{>layout/footer}}
+{{>layout/js-import}}
+<script src="/js/index.js"></script>
+<script src="/js/header.js"></script>
+</body>
+</html>
