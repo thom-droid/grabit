@@ -18,7 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PostProductRequestDto {
+public class ProductPostRequestDto {
 
     private Giver giver;
     private Category category;

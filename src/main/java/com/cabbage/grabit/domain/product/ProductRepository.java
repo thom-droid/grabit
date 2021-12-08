@@ -12,7 +12,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM product p WHERE p.sale_status = 'Y' and p.category LIKE %:category%")
     Page<Product> findBySaleStatusAndCategoryContaining(
-            @Param("category") String category, Pageable pageable);
+            @Param("category") String category,
+            Pageable pageable
+    );
 
-    Page<Product> findByGiverId(@Param("giver_id") Long giverId, Pageable pageable);
+    Page<Product> findByGiverId(
+            @Param("giver_id") Long giverId,
+            Pageable pageable
+    );
 }
