@@ -7,7 +7,7 @@ import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.shipment.RegionRepository;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.GiverRepository;
-import com.cabbage.grabit.domain.product.dto.PostProductRequestDto;
+import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
@@ -17,7 +17,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,7 +26,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -113,8 +111,8 @@ public class ProductApiControllerTest {
         regionRepository.save(region);
         regionRepository.save(region1);
 
-        PostProductRequestDto requestDto =
-                PostProductRequestDto.builder()
+        ProductPostRequestDto requestDto =
+                ProductPostRequestDto.builder()
                 .giver(giver)
                 .name(name)
                 .details(details)

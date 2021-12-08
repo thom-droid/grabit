@@ -1,6 +1,6 @@
-package com.cabbage.grabit.service.products;
+package com.cabbage.grabit.api.product;
 
-import com.cabbage.grabit.domain.product.dto.PostProductRequestDto;
+import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
 import com.cabbage.grabit.domain.product.dto.ProductListResponseDto;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.shipment.RegionRepository;
@@ -14,21 +14,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Slf4j
-@Component
 @RequiredArgsConstructor
+@Component
 public class ProductFacade {
 
     private final ProductService productService;
     private final GiverRepository giverRepository;
     private final RegionRepository regionRepository;
 
-    public Long postProduct(PostProductRequestDto requestDto){
+    public Long postProduct(ProductPostRequestDto requestDto){
 
         Giver giver = giverRepository.findById(requestDto.getGiver().getId()).orElseThrow(() -> new IllegalArgumentException("no giver found"));
 

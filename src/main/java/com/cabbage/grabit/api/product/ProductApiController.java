@@ -1,25 +1,11 @@
-package com.cabbage.grabit.web;
+package com.cabbage.grabit.api.product;
 
 import com.cabbage.grabit.domain.product.ProductRepository;
 import com.cabbage.grabit.exception.ApiResult;
 import com.cabbage.grabit.exception.ApiStatus;
-import com.cabbage.grabit.service.products.ProductFacade;
-import com.cabbage.grabit.service.products.ProductService;
-import com.cabbage.grabit.domain.product.dto.PostProductRequestDto;
-import com.cabbage.grabit.domain.product.dto.ProductListResponseDto;
+import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -31,7 +17,7 @@ public class ProductApiController {
     private final ProductRepository productRepository;
 
     @PostMapping
-    public ApiResult save(@RequestBody PostProductRequestDto requestDto){
+    public ApiResult save(@RequestBody ProductPostRequestDto requestDto){
 
         return ApiResult.of(ApiStatus.SUCCESS, productFacade.postProduct(requestDto));
     }
@@ -49,10 +35,9 @@ public class ProductApiController {
 
     @GetMapping("/giver/{giverId}")
     public ApiResult findMyProducts(@PathVariable Long giverId,
-    @RequestParam(defaultValue = "0") int page,
-    @RequestParam(defaultValue = "5") int size) {
-        Pageable pageable  = PageRequest.of(page, size);
-        return ApiResult.of(ApiStatus.SUCCESS, productService.selectProductListByGiver(giverId, pageable));
+                                    @RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "5") int size){
+        return ApiResult.of(ApiStatus.SUCCESS, productService.selectProductListByGiver(giverId, page, size));
     }
 
     @GetMapping

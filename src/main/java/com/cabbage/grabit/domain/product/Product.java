@@ -1,7 +1,7 @@
 package com.cabbage.grabit.domain.product;
 
 import com.cabbage.grabit.domain.BaseTimeEntity;
-import com.cabbage.grabit.domain.product.dto.PostProductRequestDto;
+import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.user.Giver;
 import lombok.*;
@@ -62,8 +62,8 @@ public class Product extends BaseTimeEntity {
     @Builder.Default
     private final List<ProductReview> productReviewList = new ArrayList<>();
 
-    public static Product create(Giver giver, Set<Region> regionSet, PostProductRequestDto requestDto){
-        Product product = PostProductRequestDto.builder()
+    public static Product create(Giver giver, Set<Region> regionSet, ProductPostRequestDto requestDto){
+        Product product = ProductPostRequestDto.builder()
                 .giver(giver)
                 .category(requestDto.getCategory())
                 .details(requestDto.getDetails())
@@ -82,12 +82,5 @@ public class Product extends BaseTimeEntity {
     public void switchStatus(){
         saleStatus = !saleStatus;
     }
-
-//    public void addGiver(Giver giver){
-//        if(!giver.getProducts().contains(this)){
-//            giver.getProducts().add(this);
-//        }
-//        this.giver = giver;
-//    }
 
 }
