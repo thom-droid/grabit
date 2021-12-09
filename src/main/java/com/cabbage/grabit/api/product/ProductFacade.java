@@ -1,5 +1,7 @@
 package com.cabbage.grabit.api.product;
 
+import com.cabbage.grabit.domain.product.Product;
+import com.cabbage.grabit.domain.product.ProductRepository;
 import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
 import com.cabbage.grabit.domain.product.dto.ProductListResponseDto;
 import com.cabbage.grabit.domain.shipment.Region;
@@ -23,8 +25,14 @@ import java.util.Set;
 public class ProductFacade {
 
     private final ProductService productService;
+    private final ProductRepository productRepository;
     private final GiverRepository giverRepository;
     private final RegionRepository regionRepository;
+
+    // TODO 메서드 쿼리처럼 메서드 시그니처만으로 엔티티를 얻어오는 코드는 없을까?
+    public Product getProductById(Long productId){
+        return productRepository.findById(productId).orElseThrow(()->new IllegalArgumentException("no product found"));
+    }
 
     public Long postProduct(ProductPostRequestDto requestDto){
 
