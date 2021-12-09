@@ -14,8 +14,6 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @DiscriminatorValue("TAKER")
 @Entity
 public class Taker extends Member {
@@ -24,25 +22,17 @@ public class Taker extends Member {
     private String nickname;
 
     @OneToMany(mappedBy = "taker", fetch = FetchType.LAZY)
-    @Builder.Default
     private final List<ProductReview> productReviewList = new ArrayList<>();
 
     @OneToMany(mappedBy = "taker", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    @Builder.Default
     private final List<ShippingAddress> shippingAddressList = new ArrayList<>();
 
     @OneToMany(mappedBy = "taker", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    @Builder.Default
     private final List<Subscription> subscriptionList = new ArrayList<>();
 
-
-//    public static Taker createEntity (String name, String email, String picture, Role role, String nickname) {
-//        Taker taker = Taker.builder().nickname(nickname).build();
-//        taker.name = name;
-//
-//        return taker;
-//
-//    }
-
-
+    @Builder
+    public Taker(String name, String email, String picture, Role role, String nickname) {
+        super(name, email, picture, role);
+        this.nickname = nickname;
+    }
 }

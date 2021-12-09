@@ -16,6 +16,7 @@ public class ProductApiController {
     private final ProductFacade productFacade;
     private final ProductRepository productRepository;
 
+    // TODO product 등록 시 이미지 파일 multipart 처리해야함
     @PostMapping
     public ApiResult save(@RequestBody ProductPostRequestDto requestDto){
 
