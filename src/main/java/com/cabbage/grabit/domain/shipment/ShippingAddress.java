@@ -1,10 +1,9 @@
 package com.cabbage.grabit.domain.shipment;
 
+import com.cabbage.grabit.domain.shipment.dto.ShippingAddressPostRequestDto;
+import com.cabbage.grabit.domain.subscription.dto.SubscriptionPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -28,14 +27,31 @@ public class ShippingAddress {
     @Column(nullable = false)
     private String recipient;
 
+    @Setter
     private boolean isDefault;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="REGION_ID")
     private Region region;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "TAKER_ID")
     private Taker taker;
+
+    public static ShippingAddress create(Taker taker, Region region, ShippingAddressPostRequestDto requestDto){
+        ShippingAddress shippingAddress = ShippingAddressPostRequestDto.builder()
+                .addressDetail(requestDto.getAddressDetail())
+                .nickname(requestDto.getNickname())
+                .recipient(requestDto.getRecipient())
+                .isDefault(requestDto.getIsDefault())
+                .region(region)
+                .taker(taker)
+                .build()
+                .toEntity();
+        taker.getShippingAddressList().add(shippingAddress);
+
+        return shippingAddress;
+    }
+
 
 }
