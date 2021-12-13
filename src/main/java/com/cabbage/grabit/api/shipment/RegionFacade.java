@@ -9,9 +9,4 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegionFacade {
 
-    private final RegionRepository regionRepository;
-
-    public Region getRegionById(Long regionId){
-        return regionRepository.findById(regionId).orElseThrow(() -> new IllegalArgumentException("no region found"));
-    }
 }

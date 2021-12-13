@@ -33,7 +33,9 @@ public class SubscriptionPostRequestDto {
                 .recipient(recipient)
                 .taker(taker)
                 .product(product)
+                .shippingStatus(shippingStatus)
                 .shippingAddress(shippingAddress)
+                .isSubscribed(isSubscribed)
                 .build();
     }
 

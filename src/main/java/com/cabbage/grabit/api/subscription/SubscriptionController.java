@@ -4,21 +4,21 @@ import com.cabbage.grabit.domain.subscription.dto.SubscriptionPostRequestDto;
 import com.cabbage.grabit.exception.ApiResult;
 import com.cabbage.grabit.exception.ApiStatus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/subscription")
+@RequestMapping("/api/v1/subscription")
 public class SubscriptionController {
 
-    private SubscriptionFacade subscriptionFacade;
+    private final SubscriptionFacade subscriptionFacade;
 
     @GetMapping("/list/{takerId}")
     public ApiResult getSubscription(@PathVariable Long takerId,
                                      @RequestParam(defaultValue = "0") int page,
                                      @RequestParam(defaultValue = "5") int size
     ){
-
         return ApiResult.of(ApiStatus.SUCCESS, subscriptionFacade.getSubscriptionByTaker(takerId, page, size));
     }
 

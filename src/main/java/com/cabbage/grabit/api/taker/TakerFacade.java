@@ -9,10 +9,4 @@ import org.springframework.stereotype.Component;
 @Component
 public class TakerFacade {
 
-    private final TakerRepository takerRepository;
-
-    public Taker getTakerById(Long takerId){
-        return takerRepository.findById(takerId).orElseThrow(()-> new IllegalArgumentException("no taker found"));
-    }
-
 }

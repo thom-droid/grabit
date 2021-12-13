@@ -3,6 +3,7 @@ package com.cabbage.grabit.domain.shipment;
 import com.cabbage.grabit.domain.shipment.dto.ShippingAddressPostRequestDto;
 import com.cabbage.grabit.domain.subscription.dto.SubscriptionPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,6 +35,7 @@ public class ShippingAddress {
     @JoinColumn(name="REGION_ID")
     private Region region;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "TAKER_ID")
     private Taker taker;

@@ -24,11 +24,16 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final GiverRepository giverRepository;
 
-    @Transactional
-        public Long postProduct(Giver giver, Set<Region> regionSet, ProductPostRequestDto requestDto){
-        Product product = Product.create(giver, regionSet, requestDto);
+    // TODO 메서드 쿼리처럼 메서드 시그니처만으로 엔티티를 얻어오는 코드는 없을까?
+    public Product getProductById(Long productId){
+        return productRepository.findById(productId).orElseThrow(()->new IllegalArgumentException("no product found"));
+    }
 
-        return productRepository.save(product).getId();
+    @Transactional
+    public Long postProduct(Giver giver, Set<Region> regionSet, ProductPostRequestDto requestDto){
+    Product product = Product.create(giver, regionSet, requestDto);
+
+    return productRepository.save(product).getId();
     }
 
     @Transactional

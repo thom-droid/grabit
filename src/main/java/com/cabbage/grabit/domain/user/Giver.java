@@ -2,6 +2,7 @@ package com.cabbage.grabit.domain.user;
 
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product.Reply;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,9 +26,11 @@ public class Giver extends Member {
     @Column(nullable = false)
     private String company;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "giver", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private final List<Product> productList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "giver", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private final List<Reply> replyList = new ArrayList<>();
 

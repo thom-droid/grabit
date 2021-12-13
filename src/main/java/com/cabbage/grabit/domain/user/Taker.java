@@ -3,6 +3,7 @@ package com.cabbage.grabit.domain.user;
 import com.cabbage.grabit.domain.product.ProductReview;
 import com.cabbage.grabit.domain.shipment.ShippingAddress;
 import com.cabbage.grabit.domain.subscription.Subscription;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,12 +22,15 @@ public class Taker extends Member {
     @Column(nullable = false)
     private String nickname;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "taker", fetch = FetchType.LAZY)
     private final List<ProductReview> productReviewList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "taker", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private final List<ShippingAddress> shippingAddressList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "taker", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private final List<Subscription> subscriptionList = new ArrayList<>();
 

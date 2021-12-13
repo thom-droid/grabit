@@ -29,11 +29,6 @@ public class ProductFacade {
     private final GiverRepository giverRepository;
     private final RegionRepository regionRepository;
 
-    // TODO 메서드 쿼리처럼 메서드 시그니처만으로 엔티티를 얻어오는 코드는 없을까?
-    public Product getProductById(Long productId){
-        return productRepository.findById(productId).orElseThrow(()->new IllegalArgumentException("no product found"));
-    }
-
     public Long postProduct(ProductPostRequestDto requestDto){
 
         Giver giver = giverRepository.findById(requestDto.getGiver().getId()).orElseThrow(() -> new IllegalArgumentException("no giver found"));
