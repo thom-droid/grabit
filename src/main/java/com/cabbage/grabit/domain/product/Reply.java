@@ -1,7 +1,7 @@
 package com.cabbage.grabit.domain.product;
 
+import com.cabbage.grabit.domain.product_review.ProductReview;
 import com.cabbage.grabit.domain.user.Giver;
-import com.cabbage.grabit.domain.user.Taker;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

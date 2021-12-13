@@ -2,6 +2,7 @@ package com.cabbage.grabit.domain.product;
 
 import com.cabbage.grabit.domain.BaseTimeEntity;
 import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
+import com.cabbage.grabit.domain.product_review.ProductReview;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.user.Giver;
 import com.fasterxml.jackson.annotation.*;

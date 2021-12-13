@@ -1,10 +1,9 @@
 package com.cabbage.grabit.domain.user;
 
-import com.cabbage.grabit.domain.product.ProductReview;
+import com.cabbage.grabit.domain.product_review.ProductReview;
 import com.cabbage.grabit.domain.shipment.ShippingAddress;
 import com.cabbage.grabit.domain.subscription.Subscription;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
