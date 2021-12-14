@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -75,10 +76,13 @@ public class Product extends BaseTimeEntity {
                 .name(requestDto.getName())
                 .price(requestDto.getPrice())
                 .regions(regionSet)
+                .productStat(new ProductStat())
                 .build()
                 .toEntity();
+
         product.setSaleStatus(true);
         giver.getProductList().add(product);
+
 
         return product;
     }
@@ -87,4 +91,17 @@ public class Product extends BaseTimeEntity {
         saleStatus = !saleStatus;
     }
 
+    public void updateProductStat(){
+        double rate = productStat.getRate();
+        int reviewCount = productStat.getReviewCount();
+        double subscriptionCount = productStat.getSubscriptionCount();
+        reviewCount++;
+        ProductStat productStat = ProductStat.builder()
+                .rate(rate)
+                .reviewCount(reviewCount)
+                .subscriptionCount(subscriptionCount)
+                .build();
+
+
+    }
 }

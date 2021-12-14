@@ -31,7 +31,7 @@ public class ProductService {
 
     @Transactional
     public Long postProduct(Giver giver, Set<Region> regionSet, ProductPostRequestDto requestDto){
-    Product product = Product.create(giver, regionSet, requestDto);
+        Product product = Product.create(giver, regionSet, requestDto);
 
     return productRepository.save(product).getId();
     }

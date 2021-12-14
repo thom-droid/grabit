@@ -1,7 +1,7 @@
 package com.cabbage.grabit.domain.product_review;
 
 import com.cabbage.grabit.domain.product.Product;
-import com.cabbage.grabit.domain.product.Reply;
+import com.cabbage.grabit.domain.reply.Reply;
 import com.cabbage.grabit.domain.product_review.dto.ReviewPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
 import lombok.*;
@@ -26,7 +26,7 @@ public class ProductReview {
     private String content;
 
     @Column(nullable = false, precision = 1)
-    private BigDecimal rate;
+    private int rate;
 
     @Column
     private Boolean isModified;
@@ -65,4 +65,5 @@ public class ProductReview {
         this.content = content;
         this.isModified = true;
     }
+
 }

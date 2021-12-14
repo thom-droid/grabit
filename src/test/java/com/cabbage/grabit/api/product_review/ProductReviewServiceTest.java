@@ -20,9 +20,9 @@ public class ProductReviewServiceTest extends ApiTestEnvironment {
     @Transactional
     public void postReview() {
 
-        BigDecimal rate = BigDecimal.valueOf(4);
+        int rate = 4;
         String content = "아주 맛이 좋네요";
-        Product product = productService.getProductById(2L);
+        Product product = productService.getProductById(12L);
         Taker taker = takerService.getTakerById(3L);
 
         ReviewPostRequestDto requestDto = ReviewPostRequestDto.builder()

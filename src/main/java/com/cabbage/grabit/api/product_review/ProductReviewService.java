@@ -27,8 +27,13 @@ public class ProductReviewService {
                            Product product,
                            ReviewPostRequestDto requestDto){
 
+
+        // persist review
         ProductReview productReview = productReviewRepository.save(ProductReview.create(taker, product, requestDto));
 
+        // update product stat (review count, review rate)
+        int rate = requestDto.getRate();
+        product.getProductStat().updateRate(rate);
         return productReview.getId();
     }
 

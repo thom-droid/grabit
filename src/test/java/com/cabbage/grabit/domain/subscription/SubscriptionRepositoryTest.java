@@ -23,10 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class SubscriptionRepositoryTest extends JpaTestEnvironment {
 
-    @Before
-    public void setUp() throws Exception {
-    }
-
     @Test
     @Transactional
     public void findAllByTakerId() {

@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 public class ReviewPostRequestDto {
 
     private String content;
-    private BigDecimal rate;
+    private int rate;
     private Product product;
     private Taker taker;
 

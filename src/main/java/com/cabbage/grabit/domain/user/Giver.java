@@ -1,7 +1,7 @@
 package com.cabbage.grabit.domain.user;
 
 import com.cabbage.grabit.domain.product.Product;
-import com.cabbage.grabit.domain.product.Reply;
+import com.cabbage.grabit.domain.reply.Reply;
 import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

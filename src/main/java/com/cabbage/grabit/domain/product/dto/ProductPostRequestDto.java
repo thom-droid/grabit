@@ -1,5 +1,6 @@
 package com.cabbage.grabit.domain.product.dto;
 
+import com.cabbage.grabit.domain.product.ProductStat;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.product.Category;
 import com.cabbage.grabit.domain.product.Product;
@@ -26,6 +27,7 @@ public class ProductPostRequestDto {
     private Integer price;
     private String image;
     private String details;
+    private ProductStat productStat;
     @Builder.Default
     private Set<Region> regions = new HashSet<>();
 
@@ -38,6 +40,7 @@ public class ProductPostRequestDto {
                 .price(price)
                 .image(image)
                 .regions(regions)
+                .productStat(new ProductStat())
                 .build();
     }
 }

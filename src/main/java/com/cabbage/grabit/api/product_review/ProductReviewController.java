@@ -19,6 +19,7 @@ public class ProductReviewController {
         return ApiResult.of(ApiStatus.SUCCESS, productReviewFacade.postReview(requestDto));
     }
 
+    // TODO session 활용해서 해당 글을 쓴 사람만 수정 가능하도록 추가해야함
     @PutMapping("/{reviewId}")
     public ApiResult updateProductReview(@RequestBody String content,
                                          @PathVariable("reviewId") Long reviewId){

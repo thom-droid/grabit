@@ -16,7 +16,7 @@ public class ProductReviewRepositoryTest extends JpaTestEnvironment {
     @Test
     @Transactional
     public void save(){
-        BigDecimal rate = BigDecimal.valueOf(4);
+        int rate = 4;
         String content = "아주 맛이 좋네요";
 
         Taker taker = takerRepository.findById(3L).orElseThrow(()-> new IllegalArgumentException("no"));

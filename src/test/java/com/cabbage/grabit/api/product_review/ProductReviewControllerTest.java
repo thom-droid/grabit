@@ -1,12 +1,15 @@
 package com.cabbage.grabit.api.product_review;
 
 import com.cabbage.grabit.api.ApiTestEnvironment;
+import com.cabbage.grabit.api.product.ProductApiControllerTest;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product_review.ProductReview;
 import com.cabbage.grabit.domain.product_review.dto.ReviewPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,15 +24,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class ProductReviewControllerTest extends ApiTestEnvironment {
 
-
     @Test
     @Transactional
     public void postProductReview() throws Exception{
 
+
         // given
-        BigDecimal rate = BigDecimal.valueOf(4);
+        int rate = 4;
         String content = "아주 맛이 좋네요";
-        Product product = productService.getProductById(2L);
+        Product product = productService.getProductById(12L);
         Taker taker = takerService.getTakerById(3L);
 
         ReviewPostRequestDto requestDto = ReviewPostRequestDto.builder()
@@ -41,14 +44,18 @@ public class ProductReviewControllerTest extends ApiTestEnvironment {
 
         String json = new ObjectMapper().writeValueAsString(requestDto);
         String url = "http://localhost:" +port + "/review";
-        //when
 
+        //when
         mvc.perform(post(url).contentType(MediaType.APPLICATION_JSON_UTF8).content(json)).andExpect(status().isOk()).andDo(print());
 
         //then
         ProductReview productReview = productReviewService.findById(1L);
+        System.out.println(productReview.toString());
         assertThat(productReview.getContent()).isEqualTo(content);
         assertThat(productReview.getRate()).isEqualByComparingTo(rate);
+        assertThat(product.getProductStat().getFour()).isEqualTo(1);
+        assertThat(product.getProductStat().getReviewCount()).isEqualTo(1);
+        assertThat(product.getProductStat().getRate()).isEqualTo(4);
     }
 
     @Test
