@@ -2,6 +2,7 @@ package com.cabbage.grabit.api.product_review;
 
 import com.cabbage.grabit.api.ApiTestEnvironment;
 import com.cabbage.grabit.domain.product.Product;
+import com.cabbage.grabit.domain.product_review.ProductReview;
 import com.cabbage.grabit.domain.product_review.dto.ReviewPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,9 +44,35 @@ public class ProductReviewControllerTest extends ApiTestEnvironment {
         //when
 
         mvc.perform(post(url).contentType(MediaType.APPLICATION_JSON_UTF8).content(json)).andExpect(status().isOk()).andDo(print());
+
+        //then
+        ProductReview productReview = productReviewService.findById(1L);
+        assertThat(productReview.getContent()).isEqualTo(content);
+        assertThat(productReview.getRate()).isEqualByComparingTo(rate);
     }
 
     @Test
-    public void updateProductReview() {
+    @Transactional
+    public void updateProductReview() throws Exception{
+
+        // post a test review
+        postProductReview();
+
+        //given
+        String content = "감자탕?";
+        Long reviewId = 1L;
+
+//        String json = new ObjectMapper().writeValueAsString(content);
+        String url = "http://localhost:" +port + "/review/" +reviewId;
+
+        //when
+        mvc.perform(put(url).content(content).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andDo(print());
+        ProductReview productReview = productReviewService.findById(1L);
+        if (productReview != null){
+            System.out.println(productReview.toString());
+        }
+        //then
+        assertThat(content).isEqualTo(productReview.getContent());
+        assertTrue(productReview.getIsModified());
     }
 }
