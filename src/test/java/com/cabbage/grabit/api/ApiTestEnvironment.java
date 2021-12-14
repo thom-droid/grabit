@@ -1,9 +1,11 @@
 package com.cabbage.grabit.api;
 
 import com.cabbage.grabit.api.product.ProductService;
+import com.cabbage.grabit.api.product_review.ProductReviewService;
 import com.cabbage.grabit.api.shipment.RegionService;
 import com.cabbage.grabit.api.taker.TakerService;
 import com.cabbage.grabit.domain.product.ProductRepository;
+import com.cabbage.grabit.domain.product_review.ProductReviewRepository;
 import com.cabbage.grabit.domain.shipment.RegionRepository;
 import com.cabbage.grabit.domain.subscription.SubscriptionRepository;
 import com.cabbage.grabit.domain.user.GiverRepository;
@@ -50,6 +52,12 @@ public class ApiTestEnvironment {
 
     @Autowired
     protected RegionService regionService;
+
+    @Autowired
+    protected ProductReviewService productReviewService;
+
+    @Autowired
+    protected ProductReviewRepository productReviewRepository;
 
 
     @Autowired

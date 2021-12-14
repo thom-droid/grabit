@@ -77,15 +77,6 @@ public class SubscriptionControllerTest extends ApiTestEnvironment {
                 .shippingStatus(ShippingStatus.PREPARING)
                 .build();
 
-//        private ShippingStatus shippingStatus;
-//        private Integer price;
-//        private String shippingMessage;
-//        private String recipient;
-//        private Taker taker;
-//        private Product product;
-//        private ShippingAddress shippingAddress;
-
-
         String url = "http://localhost:"+port+"/api/v1/subscription";
 //        ObjectMapper om = new ObjectMapper().setVisibility(PropertyAccessor.FIELD, )
         String requestJson = new ObjectMapper().writeValueAsString(requestDto);
