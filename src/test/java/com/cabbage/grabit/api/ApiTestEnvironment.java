@@ -9,6 +9,7 @@ import com.cabbage.grabit.domain.product.Category;
 import com.cabbage.grabit.domain.product.ProductRepository;
 import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
 import com.cabbage.grabit.domain.product_review.ProductReviewRepository;
+import com.cabbage.grabit.domain.reply.ReplyRepository;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.shipment.RegionRepository;
 import com.cabbage.grabit.domain.subscription.SubscriptionRepository;
@@ -18,6 +19,8 @@ import com.cabbage.grabit.domain.user.TakerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -75,6 +78,9 @@ public class ApiTestEnvironment {
 
     @Autowired
     protected SubscriptionRepository subscriptionRepository;
+
+    @Autowired
+    protected ReplyRepository replyRepository;
 
     @Before
     public void setUp(){
