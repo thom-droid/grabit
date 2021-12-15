@@ -91,17 +91,8 @@ public class Product extends BaseTimeEntity {
         saleStatus = !saleStatus;
     }
 
-    public void updateProductStat(){
-        double rate = productStat.getRate();
-        int reviewCount = productStat.getReviewCount();
-        double subscriptionCount = productStat.getSubscriptionCount();
-        reviewCount++;
-        ProductStat productStat = ProductStat.builder()
-                .rate(rate)
-                .reviewCount(reviewCount)
-                .subscriptionCount(subscriptionCount)
-                .build();
-
-
+    public boolean hasAlreadyReview(){
+        return this.getProductReviewList().stream().
+                anyMatch(productReview -> productReview.getProduct().getId().equals(this.getId()));
     }
 }

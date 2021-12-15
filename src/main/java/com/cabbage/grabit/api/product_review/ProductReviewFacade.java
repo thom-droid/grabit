@@ -4,8 +4,11 @@ import com.cabbage.grabit.api.product.ProductService;
 import com.cabbage.grabit.api.taker.TakerService;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product.ProductStat;
+import com.cabbage.grabit.domain.product_review.ProductReview;
 import com.cabbage.grabit.domain.product_review.dto.ReviewPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
+import com.cabbage.grabit.exception.ApiException;
+import com.cabbage.grabit.exception.ApiStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +24,10 @@ public class ProductReviewFacade {
 
         Taker taker = takerService.getTakerById(requestDto.getTaker().getId());
         Product product = productService.getProductById(requestDto.getProduct().getId());
+
+        // invoke exception when product review already exists
+        if(product.hasAlreadyReview())
+            throw new ApiException(ApiStatus.DUPLICATED_REVIEW);
 
         return productReviewService.postReview(taker, product, requestDto);
 

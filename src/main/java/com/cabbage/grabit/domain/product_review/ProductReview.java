@@ -1,9 +1,14 @@
 package com.cabbage.grabit.domain.product_review;
 
+import com.cabbage.grabit.domain.BaseTimeEntity;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.reply.Reply;
 import com.cabbage.grabit.domain.product_review.dto.ReviewPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
+import com.cabbage.grabit.exception.ApiException;
+import com.cabbage.grabit.exception.ApiStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,7 +21,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 @Entity
-public class ProductReview {
+public class ProductReview extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,14 +36,17 @@ public class ProductReview {
     @Column
     private Boolean isModified;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @ManyToOne
     @JoinColumn(name="PRODUCT_ID", nullable = false)
     private Product product;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="TAKER_ID", nullable = false)
     private Taker taker;
 
+    @Setter
     @OneToOne(mappedBy = "productReview")
     private Reply reply;
 
@@ -54,9 +62,8 @@ public class ProductReview {
                 .build()
                 .toEntity();
 
-        Objects.requireNonNull(productReview, "this is null");
-        taker.getProductReviewList().add(productReview);
-        product.getProductReviewList().add(productReview);
+            product.getProductReviewList().add(productReview);
+            taker.getProductReviewList().add(productReview);
 
         return productReview;
     }

@@ -8,6 +8,8 @@ import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.GiverRepository;
 import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
+import com.cabbage.grabit.exception.ApiException;
+import com.cabbage.grabit.exception.ApiStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +28,7 @@ public class ProductService {
 
     // TODO 메서드 쿼리처럼 메서드 시그니처만으로 엔티티를 얻어오는 코드는 없을까?
     public Product getProductById(Long productId){
-        return productRepository.findById(productId).orElseThrow(()->new IllegalArgumentException("no product found"));
+        return productRepository.findById(productId).orElseThrow(()->new ApiException(ApiStatus.PRODUCT_NOT_FOUND));
     }
 
     @Transactional
