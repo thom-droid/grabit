@@ -1,24 +1,14 @@
 package com.cabbage.grabit.domain.subscription;
 
-import com.cabbage.grabit.api.subscription.SubscriptionService;
 import com.cabbage.grabit.domain.JpaTestEnvironment;
 import com.cabbage.grabit.domain.subscription.dto.SubscriptionListResponseDto;
-import lombok.RequiredArgsConstructor;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 
 
 public class SubscriptionRepositoryTest extends JpaTestEnvironment {

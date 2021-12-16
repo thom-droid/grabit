@@ -4,7 +4,6 @@ import com.cabbage.grabit.domain.subscription.dto.SubscriptionPostRequestDto;
 import com.cabbage.grabit.exception.ApiResult;
 import com.cabbage.grabit.exception.ApiStatus;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor

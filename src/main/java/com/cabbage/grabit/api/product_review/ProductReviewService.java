@@ -1,7 +1,6 @@
 package com.cabbage.grabit.api.product_review;
 
 import com.cabbage.grabit.domain.product.Product;
-import com.cabbage.grabit.domain.product.ProductRepository;
 import com.cabbage.grabit.domain.product_review.ProductReview;
 import com.cabbage.grabit.domain.product_review.ProductReviewRepository;
 import com.cabbage.grabit.domain.product_review.dto.ReviewPostRequestDto;
@@ -11,8 +10,6 @@ import com.cabbage.grabit.exception.ApiStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service

@@ -1,10 +1,12 @@
 package com.cabbage.grabit.api.product;
 
+import com.cabbage.grabit.config.aop.LogExecutionTime;
 import com.cabbage.grabit.domain.product.ProductRepository;
 import com.cabbage.grabit.exception.ApiResult;
 import com.cabbage.grabit.exception.ApiStatus;
 import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.lang.annotation.Around;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -41,6 +43,8 @@ public class ProductApiController {
         return ApiResult.of(ApiStatus.SUCCESS, productService.selectProductListByGiver(giverId, page, size));
     }
 
+    @LogExecutionTime
+//    @Around("logExecutionTime(ProceedingJoinPoint joinPoint)")
     @GetMapping
     public ApiResult findAllProducts(
             @RequestParam(required = false) String sortByPrice,

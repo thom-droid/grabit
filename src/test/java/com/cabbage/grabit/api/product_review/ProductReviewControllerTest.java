@@ -1,7 +1,6 @@
 package com.cabbage.grabit.api.product_review;
 
 import com.cabbage.grabit.api.ApiTestEnvironment;
-import com.cabbage.grabit.api.product.ProductApiControllerTest;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product_review.ProductReview;
 import com.cabbage.grabit.domain.product_review.dto.ReviewPostRequestDto;
@@ -9,19 +8,11 @@ import com.cabbage.grabit.domain.reply.Reply;
 import com.cabbage.grabit.domain.reply.dto.ReplyPostRequestDto;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.Taker;
-import com.cabbage.grabit.exception.ApiException;
-import com.cabbage.grabit.exception.ApiStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
-import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.*;
 
 import static org.assertj.core.api.Assertions.assertThat;

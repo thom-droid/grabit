@@ -1,26 +1,19 @@
 package com.cabbage.grabit.api.subscription;
 
-import com.cabbage.grabit.api.product.ProductFacade;
 import com.cabbage.grabit.api.product.ProductService;
-import com.cabbage.grabit.api.shipment.RegionFacade;
 import com.cabbage.grabit.api.shipment.RegionService;
-import com.cabbage.grabit.api.taker.TakerFacade;
 import com.cabbage.grabit.api.taker.TakerService;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.shipment.Region;
-import com.cabbage.grabit.domain.shipment.ShippingAddress;
 import com.cabbage.grabit.domain.shipment.dto.ShippingAddressPostRequestDto;
 import com.cabbage.grabit.domain.subscription.dto.SubscriptionListResponseDto;
 import com.cabbage.grabit.domain.subscription.dto.SubscriptionPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
-import com.cabbage.grabit.domain.user.TakerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Component

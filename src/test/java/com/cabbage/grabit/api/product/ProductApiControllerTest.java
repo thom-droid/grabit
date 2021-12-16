@@ -7,9 +7,7 @@ import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.user.Giver;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.NoArgsConstructor;
 import org.junit.Test;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 

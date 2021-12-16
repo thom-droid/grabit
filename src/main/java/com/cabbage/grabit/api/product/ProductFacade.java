@@ -1,6 +1,5 @@
 package com.cabbage.grabit.api.product;
 
-import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product.ProductRepository;
 import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
 import com.cabbage.grabit.domain.product.dto.ProductListResponseDto;

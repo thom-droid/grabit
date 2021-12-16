@@ -1,6 +1,5 @@
 package com.cabbage.grabit.api;
 
-import com.cabbage.grabit.api.product.ProductApiControllerTest;
 import com.cabbage.grabit.api.product.ProductService;
 import com.cabbage.grabit.api.product_review.ProductReviewService;
 import com.cabbage.grabit.api.shipment.RegionService;
@@ -19,8 +18,6 @@ import com.cabbage.grabit.domain.user.TakerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;

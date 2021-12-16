@@ -5,7 +5,6 @@ import com.cabbage.grabit.domain.shipment.ShippingAddress;
 import com.cabbage.grabit.domain.shipment.ShippingAddressRepository;
 import com.cabbage.grabit.domain.shipment.dto.ShippingAddressListToTakerResponseDto;
 import com.cabbage.grabit.domain.shipment.dto.ShippingAddressPostRequestDto;
-import com.cabbage.grabit.domain.subscription.dto.SubscriptionPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

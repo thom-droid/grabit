@@ -1,6 +1,5 @@
 package com.cabbage.grabit.api.shipment;
 
-import com.cabbage.grabit.domain.shipment.dto.ShippingAddressPostRequestDto;
 import com.cabbage.grabit.exception.ApiResult;
 import com.cabbage.grabit.exception.ApiStatus;
 import lombok.RequiredArgsConstructor;
