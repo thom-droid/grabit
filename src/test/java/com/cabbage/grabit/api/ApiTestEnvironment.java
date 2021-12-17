@@ -6,7 +6,7 @@ import com.cabbage.grabit.api.shipment.RegionService;
 import com.cabbage.grabit.api.taker.TakerService;
 import com.cabbage.grabit.domain.product.Category;
 import com.cabbage.grabit.domain.product.ProductRepository;
-import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
+import com.cabbage.grabit.domain.product.dto.request.ProductPostRequestDto;
 import com.cabbage.grabit.domain.product_review.ProductReviewRepository;
 import com.cabbage.grabit.domain.reply.ReplyRepository;
 import com.cabbage.grabit.domain.shipment.Region;
@@ -15,7 +15,9 @@ import com.cabbage.grabit.domain.subscription.SubscriptionRepository;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.GiverRepository;
 import com.cabbage.grabit.domain.user.TakerRepository;
+import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,6 +110,7 @@ public class ApiTestEnvironment {
                 .build();
 
         String json = new ObjectMapper().writeValueAsString(requestDto);
+
         String url = "http://localhost:"+port+"/api/v1/products";
 
         // when

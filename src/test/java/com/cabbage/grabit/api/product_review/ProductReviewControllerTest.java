@@ -3,9 +3,9 @@ package com.cabbage.grabit.api.product_review;
 import com.cabbage.grabit.api.ApiTestEnvironment;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product_review.ProductReview;
-import com.cabbage.grabit.domain.product_review.dto.ReviewPostRequestDto;
+import com.cabbage.grabit.domain.product_review.dto.request.ReviewPostRequestDto;
 import com.cabbage.grabit.domain.reply.Reply;
-import com.cabbage.grabit.domain.reply.dto.ReplyPostRequestDto;
+import com.cabbage.grabit.domain.reply.dto.request.ReplyPostRequestDto;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.Taker;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -138,7 +138,9 @@ public class ProductReviewControllerTest extends ApiTestEnvironment {
                 .build();
 
         String url = "http://localhost:"+port+"/reply";
-        String json = new ObjectMapper().writeValueAsString(requestDto);
+        String json = new ObjectMapper()
+//                .registerModule(jsonModule)
+                .writeValueAsString(requestDto);
 
         // when
         mvc.perform(post(url).contentType(MediaType.APPLICATION_JSON_UTF8).content(json)).andExpect(status().isOk()).andDo(print());
@@ -151,5 +153,19 @@ public class ProductReviewControllerTest extends ApiTestEnvironment {
         assertThat(productReview.getReply().getContent()).isEqualTo(content);
         System.out.println(productReview.getReply().getContent());
         System.out.println(productReview.getContent());
+    }
+
+    @Test
+    @Transactional
+    public void getProductDetail() throws Exception{
+        //given
+        postReply();
+
+        Long id = 12L;
+        String url = "http://localhost:"+port+"/api/v1/products/"+id;
+
+        //when
+        mvc.perform(get(url)).andExpect(status().isOk()).andDo(print());
+
     }
 }

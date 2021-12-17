@@ -1,5 +1,6 @@
 package com.cabbage.grabit.domain.shipment;
 
+import com.cabbage.grabit.domain.BaseTimeEntity;
 import com.cabbage.grabit.domain.shipment.dto.ShippingAddressPostRequestDto;
 import com.cabbage.grabit.domain.subscription.dto.SubscriptionPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name="SHIPPING_ADDRESS")
-public class ShippingAddress {
+public class ShippingAddress extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -2,12 +2,13 @@ package com.cabbage.grabit.api.product;
 
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product.ProductRepository;
-import com.cabbage.grabit.domain.product.dto.ProductListResponseDto;
-import com.cabbage.grabit.domain.product.dto.ProductListResponseToGiverDto;
+import com.cabbage.grabit.domain.product.dto.response.ProductDetailResponseDto;
+import com.cabbage.grabit.domain.product.dto.response.ProductListResponseDto;
+import com.cabbage.grabit.domain.product.dto.response.ProductListResponseToGiverDto;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.GiverRepository;
-import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
+import com.cabbage.grabit.domain.product.dto.request.ProductPostRequestDto;
 import com.cabbage.grabit.exception.ApiException;
 import com.cabbage.grabit.exception.ApiStatus;
 import lombok.RequiredArgsConstructor;
@@ -73,4 +74,10 @@ public class ProductService {
     }
 
 
+    public ProductDetailResponseDto getDetailedProduct(Long productId) {
+
+        Product product = getProductById(productId);
+
+        return new ProductDetailResponseDto(product);
+    }
 }

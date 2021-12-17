@@ -2,12 +2,10 @@ package com.cabbage.grabit.domain.product_review;
 
 import com.cabbage.grabit.domain.JpaTestEnvironment;
 import com.cabbage.grabit.domain.product.Product;
-import com.cabbage.grabit.domain.product_review.dto.ReviewPostRequestDto;
+import com.cabbage.grabit.domain.product_review.dto.request.ReviewPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
 import org.junit.Test;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

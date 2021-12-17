@@ -3,7 +3,7 @@ package com.cabbage.grabit.api.product;
 import com.cabbage.grabit.api.ApiTestEnvironment;
 import com.cabbage.grabit.domain.product.Category;
 import com.cabbage.grabit.domain.product.Product;
-import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
+import com.cabbage.grabit.domain.product.dto.request.ProductPostRequestDto;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.user.Giver;
 import com.fasterxml.jackson.databind.ObjectMapper;

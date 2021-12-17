@@ -1,6 +1,6 @@
 package com.cabbage.grabit.api.product_review;
 
-import com.cabbage.grabit.domain.product_review.dto.ReviewPostRequestDto;
+import com.cabbage.grabit.domain.product_review.dto.request.ReviewPostRequestDto;
 import com.cabbage.grabit.exception.ApiResult;
 import com.cabbage.grabit.exception.ApiStatus;
 import lombok.RequiredArgsConstructor;

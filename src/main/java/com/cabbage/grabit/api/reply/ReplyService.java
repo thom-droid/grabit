@@ -3,7 +3,7 @@ package com.cabbage.grabit.api.reply;
 import com.cabbage.grabit.domain.product_review.ProductReview;
 import com.cabbage.grabit.domain.reply.Reply;
 import com.cabbage.grabit.domain.reply.ReplyRepository;
-import com.cabbage.grabit.domain.reply.dto.ReplyPostRequestDto;
+import com.cabbage.grabit.domain.reply.dto.request.ReplyPostRequestDto;
 import com.cabbage.grabit.domain.user.Giver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

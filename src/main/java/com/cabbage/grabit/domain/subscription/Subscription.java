@@ -1,5 +1,6 @@
 package com.cabbage.grabit.domain.subscription;
 
+import com.cabbage.grabit.domain.BaseTimeEntity;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.shipment.ShippingAddress;
 import com.cabbage.grabit.domain.shipment.ShippingStatus;
@@ -18,7 +19,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "SUBSCRIPTION")
-public class Subscription {
+public class Subscription extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

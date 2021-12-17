@@ -1,12 +1,9 @@
 package com.cabbage.grabit.domain.subscription.dto;
 
-import com.cabbage.grabit.domain.product.Product;
-import com.cabbage.grabit.domain.product.dto.ProductResponseDto;
-import com.cabbage.grabit.domain.shipment.ShippingAddress;
+import com.cabbage.grabit.domain.product.dto.response.ProductResponseDto;
 import com.cabbage.grabit.domain.shipment.ShippingStatus;
 import com.cabbage.grabit.domain.shipment.dto.ShippingAddressResponseDto;
 import com.cabbage.grabit.domain.subscription.Subscription;
-import com.cabbage.grabit.domain.user.Taker;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

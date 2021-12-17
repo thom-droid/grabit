@@ -1,4 +1,4 @@
-package com.cabbage.grabit.domain.product.dto;
+package com.cabbage.grabit.domain.product.dto.request;
 
 import com.cabbage.grabit.domain.product.ProductStat;
 import com.cabbage.grabit.domain.shipment.Region;

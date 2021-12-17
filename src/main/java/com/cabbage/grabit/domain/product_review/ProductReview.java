@@ -3,17 +3,12 @@ package com.cabbage.grabit.domain.product_review;
 import com.cabbage.grabit.domain.BaseTimeEntity;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.reply.Reply;
-import com.cabbage.grabit.domain.product_review.dto.ReviewPostRequestDto;
+import com.cabbage.grabit.domain.product_review.dto.request.ReviewPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
-import com.cabbage.grabit.exception.ApiException;
-import com.cabbage.grabit.exception.ApiStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Objects;
 
 @ToString
 @Getter

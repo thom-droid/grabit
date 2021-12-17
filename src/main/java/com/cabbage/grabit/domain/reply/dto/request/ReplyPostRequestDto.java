@@ -1,4 +1,4 @@
-package com.cabbage.grabit.domain.reply.dto;
+package com.cabbage.grabit.domain.reply.dto.request;
 
 import com.cabbage.grabit.domain.product_review.ProductReview;
 import com.cabbage.grabit.domain.reply.Reply;

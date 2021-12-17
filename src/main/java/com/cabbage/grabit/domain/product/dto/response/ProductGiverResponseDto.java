@@ -1,4 +1,4 @@
-package com.cabbage.grabit.domain.product.dto;
+package com.cabbage.grabit.domain.product.dto.response;
 
 import com.cabbage.grabit.domain.user.Giver;
 import lombok.AllArgsConstructor;

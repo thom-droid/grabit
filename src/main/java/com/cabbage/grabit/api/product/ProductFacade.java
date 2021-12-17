@@ -1,8 +1,10 @@
 package com.cabbage.grabit.api.product;
 
+import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product.ProductRepository;
-import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
-import com.cabbage.grabit.domain.product.dto.ProductListResponseDto;
+import com.cabbage.grabit.domain.product.dto.request.ProductPostRequestDto;
+import com.cabbage.grabit.domain.product.dto.response.ProductDetailResponseDto;
+import com.cabbage.grabit.domain.product.dto.response.ProductListResponseDto;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.shipment.RegionRepository;
 import com.cabbage.grabit.domain.user.Giver;
@@ -56,8 +58,6 @@ public class ProductFacade {
         return productService.getAllProducts(category, paging);
 
     }
-
-
 
 
 }

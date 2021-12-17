@@ -2,7 +2,7 @@ package com.cabbage.grabit.domain.reply;
 
 import com.cabbage.grabit.domain.BaseTimeEntity;
 import com.cabbage.grabit.domain.product_review.ProductReview;
-import com.cabbage.grabit.domain.reply.dto.ReplyPostRequestDto;
+import com.cabbage.grabit.domain.reply.dto.request.ReplyPostRequestDto;
 import com.cabbage.grabit.domain.user.Giver;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

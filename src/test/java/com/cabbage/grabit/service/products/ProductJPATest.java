@@ -6,7 +6,7 @@ import com.cabbage.grabit.domain.product.ProductRepository;
 import com.cabbage.grabit.domain.user.Giver;
 
 import com.cabbage.grabit.domain.user.GiverRepository;
-import com.cabbage.grabit.domain.product.dto.ProductResponseDto;
+import com.cabbage.grabit.domain.product.dto.response.ProductResponseDto;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

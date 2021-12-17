@@ -3,7 +3,7 @@ package com.cabbage.grabit.api.reply;
 import com.cabbage.grabit.api.giver.GiverService;
 import com.cabbage.grabit.api.product_review.ProductReviewService;
 import com.cabbage.grabit.domain.product_review.ProductReview;
-import com.cabbage.grabit.domain.reply.dto.ReplyPostRequestDto;
+import com.cabbage.grabit.domain.reply.dto.request.ReplyPostRequestDto;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.exception.ApiException;
 import com.cabbage.grabit.exception.ApiStatus;

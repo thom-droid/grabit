@@ -2,7 +2,7 @@ package com.cabbage.grabit.api.product_review;
 
 import com.cabbage.grabit.api.ApiTestEnvironment;
 import com.cabbage.grabit.domain.product.Product;
-import com.cabbage.grabit.domain.product_review.dto.ReviewPostRequestDto;
+import com.cabbage.grabit.domain.product_review.dto.request.ReviewPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
 import org.junit.Test;
 import org.springframework.transaction.annotation.Transactional;

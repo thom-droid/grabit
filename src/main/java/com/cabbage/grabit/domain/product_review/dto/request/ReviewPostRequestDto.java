@@ -1,4 +1,4 @@
-package com.cabbage.grabit.domain.product_review.dto;
+package com.cabbage.grabit.domain.product_review.dto.request;
 
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product_review.ProductReview;
