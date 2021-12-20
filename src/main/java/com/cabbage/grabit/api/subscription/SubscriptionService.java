@@ -28,7 +28,7 @@ public class SubscriptionService {
     @Transactional(readOnly = true)
     public Page<SubscriptionListResponseDto> getSubscriptionByTakerId(Long takerId, Pageable paging){
 
-        return subscriptionRepository.findAllByTakerId(takerId, paging).map(SubscriptionListResponseDto::new);
+        return subscriptionRepository.findAllByTakerId(takerId, paging).map(SubscriptionListResponseDto::from);
 
     }
 

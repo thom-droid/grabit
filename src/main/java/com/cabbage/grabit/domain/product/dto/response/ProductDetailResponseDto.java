@@ -7,15 +7,21 @@ import com.cabbage.grabit.domain.product_review.dto.response.ReviewResponseForPr
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.dto.response.GiverResponseForProduct;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ProductDetailResponseDto {
 
     private Long itemId;
@@ -27,21 +33,42 @@ public class ProductDetailResponseDto {
     private boolean saleStatus;
     private ProductStat productStat;
     private GiverResponseForProduct giver;
-    private Set<Region> regions;
-    private List<ReviewResponseForProduct> reviewList;
+    @Builder.Default
+    private Set<Region> regions = new HashSet<>();
 
-    public ProductDetailResponseDto(Product product) {
-        this.itemId = product.getId();
-        this.category = product.getCategory();
-        this.name = product.getName();
-        this.price = product.getPrice();
-        this.details = product.getDetails();
-        this.image = product.getImage();
-        this.saleStatus = product.isSaleStatus();
-        this.productStat = product.getProductStat();
-        this.giver = new GiverResponseForProduct(product.getGiver());
-        this.regions = product.getRegions();
-        this.reviewList = product.getProductReviewList().stream()
-                .map(ReviewResponseForProduct::new).collect(Collectors.toList());
+    @Builder.Default
+    private List<ReviewResponseForProduct> reviewList = new ArrayList<>();
+
+//    public ProductDetailResponseDto(Product product) {
+//        this.itemId = product.getId();
+//        this.category = product.getCategory();
+//        this.name = product.getName();
+//        this.price = product.getPrice();
+//        this.details = product.getDetails();
+//        this.image = product.getImage();
+//        this.saleStatus = product.isSaleStatus();
+//        this.productStat = product.getProductStat();
+//        this.giver = new GiverResponseForProduct(product.getGiver());
+//        this.regions = product.getRegions();
+//        this.reviewList = product.getProductReviewList().stream()
+//                .map(ReviewResponseForProduct::new).collect(Collectors.toList());
+//    }
+
+    public static ProductDetailResponseDto from(Product product){
+        return ProductDetailResponseDto.builder()
+                .itemId(product.getId())
+                .category(product.getCategory())
+                .name(product.getName())
+                .price(product.getPrice())
+                .details(product.getDetails())
+                .image(product.getImage())
+                .saleStatus(product.isSaleStatus())
+                .productStat(product.getProductStat())
+                .giver(GiverResponseForProduct.from(product.getGiver()))
+                .regions(product.getRegions())
+                .reviewList(product.getProductReviewList()
+                        .stream().map(ReviewResponseForProduct::from)
+                        .collect(Collectors.toList()))
+                .build();
     }
 }

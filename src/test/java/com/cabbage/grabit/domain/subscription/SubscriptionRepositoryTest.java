@@ -22,7 +22,7 @@ public class SubscriptionRepositoryTest extends JpaTestEnvironment {
         list.forEach(subscription -> {
             System.out.println(subscription.getTaker());
         });
-        Page<SubscriptionListResponseDto> viewList = list.map(SubscriptionListResponseDto::new);
+        Page<SubscriptionListResponseDto> viewList = list.map(SubscriptionListResponseDto::from);
 
         System.out.println(viewList.getContent().get(0).getId());
         System.out.println(viewList.getContent().get(0).getProduct().getName());
