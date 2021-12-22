@@ -1,5 +1,6 @@
 package com.cabbage.grabit.domain.user;
 
+import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product_review.ProductReview;
 import com.cabbage.grabit.domain.shipment.ShippingAddress;
 import com.cabbage.grabit.domain.subscription.Subscription;
@@ -37,5 +38,11 @@ public class Taker extends Member {
     public Taker(String name, String email, String picture, Role role, String nickname) {
         super(name, email, picture, role);
         this.nickname = nickname;
+    }
+
+    public boolean hasSubscribed(Product product){
+        return this.getSubscriptionList()
+                .stream()
+                .anyMatch(subscription -> subscription.getProduct().getId().equals(product.getId()));
     }
 }

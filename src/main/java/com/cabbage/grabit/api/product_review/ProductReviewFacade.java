@@ -27,6 +27,11 @@ public class ProductReviewFacade {
         if(product.hasAlreadyReview())
             throw new ApiException(ApiStatus.DUPLICATED_REVIEW);
 
+        // if the product is not subscribed
+        if(!taker.hasSubscribed(product)){
+            throw new ApiException(ApiStatus.REVIEW_NOT_SUBSCRIBED);
+        }
+
         return productReviewService.postReview(taker, product, requestDto);
 
     }

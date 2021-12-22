@@ -16,9 +16,9 @@ public enum ApiStatus implements ApiStatusInterface{
     TAKER_NOT_FOUND(-101, "taker not found"),
 
 
-
     /** product : -201 ~ -300 */
     PRODUCT_NOT_FOUND(-201, "product not found"),
+    PRODUCT_NOT_BELONG_TO_GIVER(-202, "this product does not belong to this giver"),
 
 
 
@@ -26,6 +26,7 @@ public enum ApiStatus implements ApiStatusInterface{
     ONE_REPLY_PER_REVIEW(-10, "A review has to have only one reply"),
     REVIEW_NOT_FOUND(-11, "no review found"),
     DUPLICATED_REVIEW(-12, "a product cannot have more than two reviews from one taker"),
+    REVIEW_NOT_SUBSCRIBED(-13, "Need to subscribe a product in order to write a review"),
 
     /** subscription : -401 ~ -500 */
 
