@@ -1,14 +1,18 @@
 package com.cabbage.grabit.api.product;
 
+import com.cabbage.grabit.api.giver.GiverService;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product.ProductRepository;
 import com.cabbage.grabit.domain.product.dto.request.ProductPostRequestDto;
 import com.cabbage.grabit.domain.product.dto.response.ProductDetailResponseDto;
+import com.cabbage.grabit.domain.product.dto.response.ProductDetailResponseToGiver;
 import com.cabbage.grabit.domain.product.dto.response.ProductListResponseDto;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.shipment.RegionRepository;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.GiverRepository;
+import com.cabbage.grabit.exception.ApiException;
+import com.cabbage.grabit.exception.ApiStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -29,10 +33,11 @@ public class ProductFacade {
     private final ProductRepository productRepository;
     private final GiverRepository giverRepository;
     private final RegionRepository regionRepository;
+    private final GiverService giverService;
 
     public Long postProduct(ProductPostRequestDto requestDto){
 
-        Giver giver = giverRepository.findById(requestDto.getGiver().getId()).orElseThrow(() -> new IllegalArgumentException("no giver found"));
+        Giver giver = giverService.findById(requestDto.getGiver().getId());
 
         /* TODO Set 으로 넘어온 파라미터 db에서 한 번에 조회해서 매핑하는 방법? */
         Set<Region> regionSet = new HashSet<>();
@@ -59,5 +64,17 @@ public class ProductFacade {
 
     }
 
+    public ProductDetailResponseToGiver getProductDetailToGiver(Long productId, Long giverId){
+        Giver entity = giverService.findById(giverId);
+        Product product = productService.getProductById(productId);
+        boolean isContained = entity.getProductList().contains(product);
+
+        if(!isContained){
+            throw new ApiException(ApiStatus.PRODUCT_NOT_BELONG_TO_GIVER);
+        }
+
+        return productService.getProductDetailToGiver(product);
+
+    }
 
 }

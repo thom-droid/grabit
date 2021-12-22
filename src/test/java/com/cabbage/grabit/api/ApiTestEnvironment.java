@@ -1,5 +1,6 @@
 package com.cabbage.grabit.api;
 
+import com.cabbage.grabit.api.giver.GiverService;
 import com.cabbage.grabit.api.product.ProductService;
 import com.cabbage.grabit.api.product_review.ProductReviewService;
 import com.cabbage.grabit.api.shipment.RegionService;
@@ -80,6 +81,10 @@ public class ApiTestEnvironment {
 
     @Autowired
     protected ReplyRepository replyRepository;
+
+    @Autowired
+    protected GiverService giverService;
+
 
     @Before
     public void setUp(){

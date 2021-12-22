@@ -3,6 +3,7 @@ package com.cabbage.grabit.api.product;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product.ProductRepository;
 import com.cabbage.grabit.domain.product.dto.response.ProductDetailResponseDto;
+import com.cabbage.grabit.domain.product.dto.response.ProductDetailResponseToGiver;
 import com.cabbage.grabit.domain.product.dto.response.ProductListResponseDto;
 import com.cabbage.grabit.domain.product.dto.response.ProductListResponseToGiverDto;
 import com.cabbage.grabit.domain.shipment.Region;
@@ -59,7 +60,7 @@ public class ProductService {
     @Transactional(readOnly = true)
     public Page<ProductListResponseToGiverDto> selectProductListByGiver(Long giverId, int page, int size){
         Pageable paging = PageRequest.of(page, size);
-        return productRepository.findByGiverId(giverId, paging).map(ProductListResponseToGiverDto::new);
+        return productRepository.findByGiverId(giverId, paging).map(ProductListResponseToGiverDto::from);
 
     }
 
@@ -67,17 +68,23 @@ public class ProductService {
     public Page<ProductListResponseDto> getAllProducts(String category, Pageable paging){
 
         if(category == null){
-            return productRepository.findAll(paging).map(ProductListResponseDto::new);
+            return productRepository.findAll(paging).map(ProductListResponseDto::from);
         }
 
-        return productRepository.findBySaleStatusAndCategoryContaining(category, paging).map(ProductListResponseDto::new);
+        return productRepository.findBySaleStatusAndCategoryContaining(category, paging).map(ProductListResponseDto::from);
     }
 
 
-    public ProductDetailResponseDto getDetailedProduct(Long productId) {
+    public ProductDetailResponseDto getProductDetail(Long productId) {
 
         Product product = getProductById(productId);
 
-        return new ProductDetailResponseDto(product);
+        return ProductDetailResponseDto.from(product);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductDetailResponseToGiver getProductDetailToGiver(Product product){
+
+        return ProductDetailResponseToGiver.from(product);
     }
 }
