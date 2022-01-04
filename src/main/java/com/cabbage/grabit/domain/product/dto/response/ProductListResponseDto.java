@@ -3,14 +3,14 @@ package com.cabbage.grabit.domain.product.dto.response;
 import com.cabbage.grabit.domain.product.Category;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product.ProductStat;
+import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.dto.response.GiverResponseForProduct;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.querydsl.core.annotations.QueryProjection;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@ToString
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,9 +22,9 @@ public class ProductListResponseDto {
     private Integer price;
     private String details;
     private boolean saleStatus;
-    private ProductStat productStat;
     private LocalDateTime createdTime;
     private Category category;
+    private ProductStat productStat;
     private GiverResponseForProduct giver;
 
 //    public ProductListResponseDto(Product entity) {

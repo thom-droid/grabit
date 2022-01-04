@@ -61,7 +61,6 @@ public class ProductApiController {
     }
 
     @LogExecutionTime
-//    @Around("logExecutionTime(ProceedingJoinPoint joinPoint)")
     @GetMapping
     public ApiResult findAllProducts(
             @RequestParam(required = false) String sortByPrice,

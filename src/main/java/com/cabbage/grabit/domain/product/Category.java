@@ -17,5 +17,4 @@ public enum Category {
     LIVING_DAILY_SUPPLIES,
     ETC;
 
-
 }

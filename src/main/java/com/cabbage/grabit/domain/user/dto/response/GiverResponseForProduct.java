@@ -1,11 +1,9 @@
 package com.cabbage.grabit.domain.user.dto.response;
 
 import com.cabbage.grabit.domain.user.Giver;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@ToString
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
