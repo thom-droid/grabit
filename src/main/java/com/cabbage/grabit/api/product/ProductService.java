@@ -6,6 +6,8 @@ import com.cabbage.grabit.domain.product.dto.response.ProductDetailResponseDto;
 import com.cabbage.grabit.domain.product.dto.response.ProductDetailResponseToGiver;
 import com.cabbage.grabit.domain.product.dto.response.ProductListResponseDto;
 import com.cabbage.grabit.domain.product.dto.response.ProductListResponseToGiverDto;
+import com.cabbage.grabit.domain.product.support.ProductQuerySupport;
+import com.cabbage.grabit.domain.product.support.SearchParam;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.GiverRepository;
@@ -27,6 +29,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final GiverRepository giverRepository;
+    private final ProductQuerySupport productQuerySupport;
 
     // TODO 메서드 쿼리처럼 메서드 시그니처만으로 엔티티를 얻어오는 코드는 없을까?
     public Product getProductById(Long productId){
@@ -86,5 +89,11 @@ public class ProductService {
     public ProductDetailResponseToGiver getProductDetailToGiver(Product product){
 
         return ProductDetailResponseToGiver.from(product);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ProductListResponseDto> getProductsPaginatedWithParam(SearchParam searchParam) {
+
+        return productQuerySupport.findProductsPaginatedWithParam(searchParam);
     }
 }

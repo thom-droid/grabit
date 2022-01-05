@@ -10,6 +10,7 @@ import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.Taker;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -94,6 +95,8 @@ public class ProductReviewControllerTest extends ApiTestEnvironment {
         //FIXME 현재 이 테스트는 의도대로 apiException이 발생하므로 통과하지 않음. thrown 됐을 때 정상적으로 통과되도록 수정 필요
         postProductReview();
         postProductReview();
+
+
     }
 
     @Test
