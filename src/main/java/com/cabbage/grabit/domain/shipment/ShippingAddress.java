@@ -1,8 +1,10 @@
 package com.cabbage.grabit.domain.shipment;
 
+import com.cabbage.grabit.domain.BaseTimeEntity;
 import com.cabbage.grabit.domain.shipment.dto.ShippingAddressPostRequestDto;
 import com.cabbage.grabit.domain.subscription.dto.SubscriptionPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +15,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name="SHIPPING_ADDRESS")
-public class ShippingAddress {
+public class ShippingAddress extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,6 +36,7 @@ public class ShippingAddress {
     @JoinColumn(name="REGION_ID")
     private Region region;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "TAKER_ID")
     private Taker taker;

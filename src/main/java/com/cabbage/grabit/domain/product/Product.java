@@ -1,9 +1,11 @@
 package com.cabbage.grabit.domain.product;
 
 import com.cabbage.grabit.domain.BaseTimeEntity;
-import com.cabbage.grabit.domain.product.dto.ProductPostRequestDto;
+import com.cabbage.grabit.domain.product.dto.request.ProductPostRequestDto;
+import com.cabbage.grabit.domain.product_review.ProductReview;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.user.Giver;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -47,6 +49,7 @@ public class Product extends BaseTimeEntity {
     @Embedded
     private ProductStat productStat;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "GIVER_ID", referencedColumnName = "ID", nullable = false)
     private Giver giver;
@@ -58,6 +61,7 @@ public class Product extends BaseTimeEntity {
     @Builder.Default
     private final Set<Region> regions = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @Builder.Default
     private final List<ProductReview> productReviewList = new ArrayList<>();
@@ -71,10 +75,13 @@ public class Product extends BaseTimeEntity {
                 .name(requestDto.getName())
                 .price(requestDto.getPrice())
                 .regions(regionSet)
+                .productStat(new ProductStat())
                 .build()
                 .toEntity();
+
         product.setSaleStatus(true);
         giver.getProductList().add(product);
+
 
         return product;
     }
@@ -83,4 +90,8 @@ public class Product extends BaseTimeEntity {
         saleStatus = !saleStatus;
     }
 
+    public boolean hasAlreadyReview(){
+        return this.getProductReviewList().stream().
+                anyMatch(productReview -> productReview.getProduct().getId().equals(this.getId()));
+    }
 }

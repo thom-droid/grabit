@@ -16,7 +16,6 @@ public class ShippingAddressListToTakerResponseDto {
     boolean isDefault;
     Region region;
 
-
     public ShippingAddressListToTakerResponseDto(ShippingAddress entity) {
         this.id = entity.getId();
         this.addressDetail = entity.getAddressDetail();

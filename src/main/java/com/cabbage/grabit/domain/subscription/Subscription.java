@@ -1,10 +1,12 @@
 package com.cabbage.grabit.domain.subscription;
 
+import com.cabbage.grabit.domain.BaseTimeEntity;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.shipment.ShippingAddress;
 import com.cabbage.grabit.domain.shipment.ShippingStatus;
 import com.cabbage.grabit.domain.subscription.dto.SubscriptionPostRequestDto;
 import com.cabbage.grabit.domain.user.Taker;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,17 +15,18 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "SUBSCRIPTION")
-public class Subscription {
+public class Subscription extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private boolean isSubscribed;
+    private Boolean isSubscribed;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

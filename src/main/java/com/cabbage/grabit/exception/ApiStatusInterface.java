@@ -4,4 +4,5 @@ public interface ApiStatusInterface {
 
     Integer getCode();
     String getMessage();
+
 }

@@ -3,7 +3,7 @@ package com.cabbage.grabit.domain.converters;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-@Converter(autoApply = true)
+//@Converter(autoApply = true)
 public class BooleanYesOrNoConverter implements AttributeConverter<Boolean, String> {
 
     @Override

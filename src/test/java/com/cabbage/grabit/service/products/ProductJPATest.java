@@ -6,7 +6,7 @@ import com.cabbage.grabit.domain.product.ProductRepository;
 import com.cabbage.grabit.domain.user.Giver;
 
 import com.cabbage.grabit.domain.user.GiverRepository;
-import com.cabbage.grabit.domain.product.dto.ProductResponseDto;
+import com.cabbage.grabit.domain.product.dto.response.ProductResponseDto;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -130,7 +130,7 @@ public class ProductJPATest {
     public void selectProductsUsingStream() {
 
         Giver giverEntity = giverRepository.getOne(1L);
-        List<ProductResponseDto> responseDtoList = giverEntity.getProductList().stream().map(ProductResponseDto::new).collect(Collectors.toList());
+        List<ProductResponseDto> responseDtoList = giverEntity.getProductList().stream().map(ProductResponseDto::from).collect(Collectors.toList());
 
         for (ProductResponseDto dto : responseDtoList){
             System.out.println(dto.getName());

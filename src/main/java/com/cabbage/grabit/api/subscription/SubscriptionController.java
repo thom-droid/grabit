@@ -8,17 +8,16 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/subscription")
+@RequestMapping("/api/v1/subscription")
 public class SubscriptionController {
 
-    private SubscriptionFacade subscriptionFacade;
+    private final SubscriptionFacade subscriptionFacade;
 
     @GetMapping("/list/{takerId}")
     public ApiResult getSubscription(@PathVariable Long takerId,
                                      @RequestParam(defaultValue = "0") int page,
                                      @RequestParam(defaultValue = "5") int size
     ){
-
         return ApiResult.of(ApiStatus.SUCCESS, subscriptionFacade.getSubscriptionByTaker(takerId, page, size));
     }
 

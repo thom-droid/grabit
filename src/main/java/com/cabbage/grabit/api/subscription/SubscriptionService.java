@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -29,7 +28,7 @@ public class SubscriptionService {
     @Transactional(readOnly = true)
     public Page<SubscriptionListResponseDto> getSubscriptionByTakerId(Long takerId, Pageable paging){
 
-        return subscriptionRepository.findAllByTakerId(takerId, paging).map(SubscriptionListResponseDto::new);
+        return subscriptionRepository.findAllByTakerId(takerId, paging).map(SubscriptionListResponseDto::from);
 
     }
 
