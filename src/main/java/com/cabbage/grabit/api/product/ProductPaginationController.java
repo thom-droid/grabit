@@ -1,6 +1,6 @@
 package com.cabbage.grabit.api.product;
 
-import com.cabbage.grabit.domain.product.support.SearchParam;
+import com.cabbage.grabit.util.SearchParam;
 import com.cabbage.grabit.exception.ApiResult;
 import com.cabbage.grabit.exception.ApiStatus;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class ProductPaginationController {
     ){
         Pageable pageable = PageRequest.of(page,size, Sort.by(sort).ascending());
 
-        SearchParam searchParam = SearchParam.create(pageable, keyword, category, sort);
+        SearchParam searchParam = SearchParam.of(pageable, keyword, category, sort);
 
         return ApiResult.of(ApiStatus.SUCCESS, productService.getProductsPaginatedWithParam(searchParam));
     }

@@ -7,7 +7,7 @@ import com.cabbage.grabit.domain.product.dto.response.ProductDetailResponseToGiv
 import com.cabbage.grabit.domain.product.dto.response.ProductListResponseDto;
 import com.cabbage.grabit.domain.product.dto.response.ProductListResponseToGiverDto;
 import com.cabbage.grabit.domain.product.support.ProductQuerySupport;
-import com.cabbage.grabit.domain.product.support.SearchParam;
+import com.cabbage.grabit.util.SearchParam;
 import com.cabbage.grabit.domain.shipment.Region;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.GiverRepository;

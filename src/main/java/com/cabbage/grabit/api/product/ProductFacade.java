@@ -4,7 +4,6 @@ import com.cabbage.grabit.api.giver.GiverService;
 import com.cabbage.grabit.domain.product.Product;
 import com.cabbage.grabit.domain.product.ProductRepository;
 import com.cabbage.grabit.domain.product.dto.request.ProductPostRequestDto;
-import com.cabbage.grabit.domain.product.dto.response.ProductDetailResponseDto;
 import com.cabbage.grabit.domain.product.dto.response.ProductDetailResponseToGiver;
 import com.cabbage.grabit.domain.product.dto.response.ProductListResponseDto;
 import com.cabbage.grabit.domain.shipment.Region;
@@ -76,5 +75,7 @@ public class ProductFacade {
         return productService.getProductDetailToGiver(product);
 
     }
+
+
 
 }

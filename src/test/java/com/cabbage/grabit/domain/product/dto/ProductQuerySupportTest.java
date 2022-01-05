@@ -3,7 +3,7 @@ package com.cabbage.grabit.domain.product.dto;
 import com.cabbage.grabit.api.product.ProductApiControllerTest;
 import com.cabbage.grabit.domain.product.dto.response.ProductListResponseDto;
 import com.cabbage.grabit.domain.product.support.ProductQuerySupport;
-import com.cabbage.grabit.domain.product.support.SearchParam;
+import com.cabbage.grabit.util.SearchParam;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

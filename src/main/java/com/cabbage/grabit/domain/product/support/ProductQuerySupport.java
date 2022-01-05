@@ -1,22 +1,17 @@
 package com.cabbage.grabit.domain.product.support;
 
-import com.cabbage.grabit.domain.product.Category;
 import com.cabbage.grabit.domain.product.ProductStat;
 import com.cabbage.grabit.domain.product.dto.response.ProductListResponseDto;
 import com.cabbage.grabit.domain.user.dto.response.GiverResponseForProduct;
-import com.querydsl.core.QueryModifiers;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
+import com.cabbage.grabit.util.QueryExpression;
+import com.cabbage.grabit.util.SearchParam;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.EntityManager;
 
 import java.util.List;
 
@@ -104,8 +99,8 @@ public class ProductQuerySupport {
                 .offset(param.getPageable().getOffset())
                 .limit(param.getPageable().getPageSize())
                 // TODO 검색 String trim, 한 단어로 어디까지 검색되게 할 것인가?를 정해야함
-                .where(ProductExpression.isParamSpecified(param))
-                .orderBy(ProductExpression.isOrderSpecified(param.getSort()));
+                .where(QueryExpression.isParamSpecified(param))
+                .orderBy(QueryExpression.isOrderSpecified(param.getSort()));
 
         return new PageImpl<>(
                 queryList.fetch(),

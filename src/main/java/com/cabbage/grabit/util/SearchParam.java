@@ -1,4 +1,4 @@
-package com.cabbage.grabit.domain.product.support;
+package com.cabbage.grabit.util;
 
 import lombok.*;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,7 @@ public class SearchParam {
 
     private Pageable pageable;
 
-    public static SearchParam create(Pageable pageable, String keyword, String category, String sort) {
+    public static SearchParam of(Pageable pageable, String keyword, String category, String sort) {
         return SearchParam.builder()
                 .pageable(pageable)
                 .keyword(keyword)
