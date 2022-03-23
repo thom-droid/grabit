@@ -28,11 +28,6 @@ public class ProductApiController {
         return ApiResult.of(ApiStatus.SUCCESS, productFacade.postProduct(requestDto));
     }
 
-    @PutMapping("/{id}")
-    public ApiResult switchStatus(@PathVariable Long id){
-        return ApiResult.of(ApiStatus.SUCCESS, productService.switchStatus(id));
-    }
-
     @DeleteMapping("/{id}")
     public Long delete(@PathVariable Long id){
         productService.delete(id);

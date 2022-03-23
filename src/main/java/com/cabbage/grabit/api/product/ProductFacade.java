@@ -76,6 +76,16 @@ public class ProductFacade {
 
     }
 
+    public Long switchProductStatus(Long giverId, Long productId){
+        Giver giver = giverService.findById(giverId);
+
+        if(giver.getProductList().stream().anyMatch(product -> product.getId() == productId)){
+            return productService.switchStatus(productId);
+        }
+
+        throw new ApiException(ApiStatus.PRODUCT_NOT_BELONG_TO_GIVER);
+    }
+
 
 
 }

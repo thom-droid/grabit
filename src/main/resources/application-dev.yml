@@ -1,29 +1,32 @@
 spring:
   h2:
-    console:
-      enabled: true
-      path: /h2-console
+    console: true
+    path: /h2-console
   datasource:
     url: jdbc:h2:mem:testdb
-    dirverClassName: org.h2.Driver
+    driverClassName: org.h2.Driver
     username: sa
     password:
     sqlScriptEncoding: UTF-8
   jpa:
     database-platform: H2
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
         format_sql: true
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect: org.hibernate.dialect.H2Dialect
+
 #    hibernate:
-#      ddl-auto: create-drop
-#      javax:
-#        persistence:
-#          schema-generation:
-#            scripts:
-#              action: create
-#              create-target: create.sql
-#              create-source: metadata
+#      ddl-auto: create
+#        javax:
+#          persistence:
+#            schema-generation:
+#              scripts:
+#                action: create
+#                  create-target: create.sql
+#                  create-source: metadata
 
 

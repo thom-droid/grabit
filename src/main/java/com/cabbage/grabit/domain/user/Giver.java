@@ -36,7 +36,7 @@ public class Giver extends Member {
 
     @Builder
     public Giver(String name, String email, String picture, String businessNum, String company) {
-        super(name, email, picture, Role.ROLE_GIVER);
+        super(name, email, picture, Role.GIVER);
         this.businessNum = businessNum;
         this.company = company;
     }
