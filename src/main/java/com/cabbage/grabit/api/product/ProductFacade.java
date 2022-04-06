@@ -37,7 +37,7 @@ public class ProductFacade {
     public Long postProduct(ProductPostRequestDto requestDto){
 
         Giver giver = giverService.findById(requestDto.getGiver().getId());
-
+        System.out.println("here i am :  " + giver.getId());
         /* TODO Set 으로 넘어온 파라미터 db에서 한 번에 조회해서 매핑하는 방법? */
         Set<Region> regionSet = new HashSet<>();
         requestDto.getRegions().forEach(r -> {

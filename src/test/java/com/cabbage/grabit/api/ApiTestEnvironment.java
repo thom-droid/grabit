@@ -16,9 +16,7 @@ import com.cabbage.grabit.domain.subscription.SubscriptionRepository;
 import com.cabbage.grabit.domain.user.Giver;
 import com.cabbage.grabit.domain.user.GiverRepository;
 import com.cabbage.grabit.domain.user.TakerRepository;
-import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,7 +114,8 @@ public class ApiTestEnvironment {
 
         String json = new ObjectMapper().writeValueAsString(requestDto);
 
-        String url = "http://localhost:"+port+"/api/v1/products";
+//        String url = "http://localhost:"+port+"/api/v1/products";
+        String url = "http://localhost:"+port+"/api/v1/giver/save";
 
         // when
         mvc.perform(post(url).contentType(MediaType.APPLICATION_JSON_UTF8).content(json)).andExpect(status().isOk()).andDo(print());
