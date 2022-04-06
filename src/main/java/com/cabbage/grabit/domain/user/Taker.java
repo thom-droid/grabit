@@ -16,6 +16,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @DiscriminatorValue("TAKER")
+@Table(name = "TAKER")
 @Entity
 public class Taker extends Member {
 

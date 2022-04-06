@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,9 +32,9 @@ public class ProductJPATest {
     @Autowired
     private GiverRepository giverRepository;
 
-    private String name = "글쓰기의 요소";
-    private Integer price = 8000;
-    private String details = "글쓰기가 무엇인지 보여드립니다.";
+    private String name = "12가지인생의법칙";
+    private Integer price = 10000;
+    private String details = "혼돈의해독제랍니다";
     private String image = "image";
 
     @Before
@@ -66,6 +67,15 @@ public class ProductJPATest {
     @After
     public void cleanup(){
         productRepository.deleteAll();
+    }
+
+    @Test
+    @Transactional
+    public void postTest(){
+
+        Giver giver = giverRepository.findById(1L).orElseThrow(()-> new IllegalArgumentException("no found"));
+
+
     }
 
     @Test
