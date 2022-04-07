@@ -5,9 +5,12 @@ import com.cabbage.grabit.domain.product.dto.request.ProductPostRequestDto;
 import com.cabbage.grabit.exception.ApiResult;
 import com.cabbage.grabit.exception.ApiStatus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -45,10 +48,13 @@ public class GiverApiController {
     }
 
     @GetMapping("/list")
-    public void searchByDate(@RequestParam String startDate,
-                             @RequestParam String endDate){
+    public Map searchByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd") LocalDate startDate,
+                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd") LocalDate endDate){
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        Map<String, LocalDate> map = new HashMap<>();
+        map.put("startDate", startDate);
+        map.put("endDate", endDate);
 
+        return map;
     }
 }

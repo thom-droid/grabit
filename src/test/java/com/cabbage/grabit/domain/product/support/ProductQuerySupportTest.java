@@ -1,8 +1,8 @@
-package com.cabbage.grabit.domain.product.dto;
+package com.cabbage.grabit.domain.product.support;
 
 import com.cabbage.grabit.api.product.ProductApiControllerTest;
 import com.cabbage.grabit.domain.product.dto.response.ProductListResponseDto;
-import com.cabbage.grabit.domain.product.support.ProductQuerySupport;
+import com.cabbage.grabit.domain.product.dto.response.ProductListResponseToGiverDto;
 import com.cabbage.grabit.util.SearchParam;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.Test;
@@ -13,6 +13,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,7 +29,7 @@ public class ProductQuerySupportTest extends ProductApiControllerTest {
     @Test
     @Transactional
     public void findProductById() throws Exception {
-        save();
+//        save();
 
         ProductQuerySupport querySupport = new ProductQuerySupport(new JPAQueryFactory(em));
 
@@ -66,5 +68,21 @@ public class ProductQuerySupportTest extends ProductApiControllerTest {
 
         assertThat(list).isNotEmpty();
         list.getContent().forEach(p -> System.out.println(p.toString()));
+    }
+
+    @Test
+    @Transactional(readOnly = true)
+    public void findProductsByDate() {
+
+        LocalDate startDate = LocalDate.of(2021,10,5);
+        LocalDate endDate = LocalDate.of(2022,4,8);
+        Long giverId = 1L;
+
+        Page<ProductListResponseToGiverDto> list = productQuerySupport.findProductsByDate(giverId, startDate,endDate);
+        assertThat(list).isNotEmpty();
+        for (ProductListResponseToGiverDto responseDto : list.getContent()) {
+            System.out.println(responseDto.toString());
+        }
+
     }
 }

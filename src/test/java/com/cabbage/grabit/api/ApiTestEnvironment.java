@@ -47,6 +47,8 @@ public class ApiTestEnvironment {
     @LocalServerPort
     protected int port;
 
+    protected final String prefix = "http://localhost:" + port;
+
     @Autowired
     protected GiverRepository giverRepository;
 

@@ -2,6 +2,7 @@ package com.cabbage.grabit.domain.product.support;
 
 import com.cabbage.grabit.domain.product.ProductStat;
 import com.cabbage.grabit.domain.product.dto.response.ProductListResponseDto;
+import com.cabbage.grabit.domain.product.dto.response.ProductListResponseToGiverDto;
 import com.cabbage.grabit.domain.user.dto.response.GiverResponseForProduct;
 import com.cabbage.grabit.util.QueryExpression;
 import com.cabbage.grabit.util.SearchParam;
@@ -11,8 +12,12 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.cabbage.grabit.domain.product.QProduct.product;
@@ -109,4 +114,43 @@ public class ProductQuerySupport {
         );
     }
 
+    public Page<ProductListResponseToGiverDto> findProductsByDate(Long giverId, LocalDate startDate, LocalDate endDate){
+
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atStartOfDay();
+
+        JPAQuery<ProductListResponseToGiverDto> query = queryFactory.select(
+                Projections.constructor(
+                        ProductListResponseToGiverDto.class,
+                        product.id,
+                        product.name,
+                        product.price,
+                        product.details,
+                        product.saleStatus,
+                        product.createdDate,
+                        product.category,
+                        Projections.constructor(
+                                ProductStat.class,
+                                product.productStat.subscriptionCount,
+                                product.productStat.rate,
+                                product.productStat.reviewCount,
+                                product.productStat.five,
+                                product.productStat.four,
+                                product.productStat.three,
+                                product.productStat.two,
+                                product.productStat.one
+                        )
+                )
+        )
+                .from(product)
+                .where(product.giver.id.eq(giverId))
+                .where(product.createdDate.between(startDateTime, endDateTime))
+                .orderBy(product.id.asc())
+                .limit(5);
+
+        Pageable pageable = PageRequest.of(0,5);
+
+        return new PageImpl<>(
+                query.fetch(), pageable, query.fetchCount());
+    }
 }
