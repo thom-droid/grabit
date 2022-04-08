@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
@@ -23,9 +23,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             Pageable pageable
     );
 
-    @Query(nativeQuery = true, value = "SELECT p FROM product p WHERE p.created_date between %:startDate% and %:endDate%")
+    @Query("SELECT p FROM Product p JOIN p.giver g WHERE p.createdDate > :startDate and g.id = :giverId")
     Page<Product> findByDate(
-            @Param("startDate")LocalDate startDate,
-            @Param("endDate")LocalDate endDate,
+            @Param("giverId") Long giverId,
+            @Param("startDate") LocalDateTime startDateTime,
             Pageable pageable);
 }

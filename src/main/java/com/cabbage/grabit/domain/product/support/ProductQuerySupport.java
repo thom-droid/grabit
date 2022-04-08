@@ -114,10 +114,10 @@ public class ProductQuerySupport {
         );
     }
 
-    public Page<ProductListResponseToGiverDto> findProductsByDate(Long giverId, LocalDate startDate, LocalDate endDate){
+    public Page<ProductListResponseToGiverDto> findProductsByDate(Long giverId, LocalDate startDate){
 
         LocalDateTime startDateTime = startDate.atStartOfDay();
-        LocalDateTime endDateTime = endDate.atStartOfDay();
+//        LocalDateTime endDateTime = endDate.atStartOfDay();
 
         JPAQuery<ProductListResponseToGiverDto> query = queryFactory.select(
                 Projections.constructor(
@@ -144,7 +144,7 @@ public class ProductQuerySupport {
         )
                 .from(product)
                 .where(product.giver.id.eq(giverId))
-                .where(product.createdDate.between(startDateTime, endDateTime))
+                .where(product.createdDate.after(startDateTime))
                 .orderBy(product.id.asc())
                 .limit(5);
 

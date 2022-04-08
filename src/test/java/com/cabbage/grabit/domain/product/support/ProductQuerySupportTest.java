@@ -75,10 +75,10 @@ public class ProductQuerySupportTest extends ProductApiControllerTest {
     public void findProductsByDate() {
 
         LocalDate startDate = LocalDate.of(2021,10,5);
-        LocalDate endDate = LocalDate.of(2022,4,8);
+        LocalDate endDate = LocalDate.now();
         Long giverId = 1L;
 
-        Page<ProductListResponseToGiverDto> list = productQuerySupport.findProductsByDate(giverId, startDate,endDate);
+        Page<ProductListResponseToGiverDto> list = productQuerySupport.findProductsByDate(giverId, startDate);
         assertThat(list).isNotEmpty();
         for (ProductListResponseToGiverDto responseDto : list.getContent()) {
             System.out.println(responseDto.toString());

@@ -89,14 +89,14 @@ public class GiverApiControllerTest extends ApiTestEnvironment {
 
     @Test
     public void searchByDate() throws Exception {
-        String startDate = "2022-04-06";
-        String endDate = "2022-04-07";
+        String startDate = "2022-01-06";
+        String giverId = "1";
 
         String url = prefix + "/api/v1/giver/list";
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("startDate", startDate);
-        params.add("endDate", endDate);
+        params.add("giverId", giverId);
 
         //when
         mvc.perform(get(url).params(params)).andExpect(status().isOk()).andDo(print());
