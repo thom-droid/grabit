@@ -28,27 +28,27 @@ values ('서울','용산구');
 
 
 insert into PRODUCT (giver_id, category, name, price, details, sale_status, created_date, image)
-values (1,'CLOTHING_SOCKS','12가지인생의법칙',10000,'혼돈의해독제랍니다', 'Y', current_timestamp, 'default.jpg');
+values (1,'CLOTHING_SOCKS','12가지인생의법칙',10000,'혼돈의해독제랍니다', 'Y', '2021-10-31', 'default.jpg');
 insert into PRODUCT (giver_id, category, name, price, details, sale_status, created_date, image)
 values (2,'CLOTHING','라쇼몽',7500,'아쿠타가와류노스께의대표작', 'Y', current_timestamp, 'default.jpg');
 insert into PRODUCT (giver_id, category, name, price, details, sale_status, created_date, image)
-values (1,'CLOTHING','수학의정석',13500,'사서한번도보지않은몇안되는책', 'Y', current_timestamp, 'default.jpg');
+values (1,'CLOTHING','수학의정석',13500,'사서한번도보지않은몇안되는책', 'Y', '2021-11-01', 'default.jpg');
 insert into PRODUCT (giver_id, category, name, price, details, sale_status, created_date, image)
 values (2,'CLOTHING_STYLING','잉여인간',8500,'솔직히재미없었다', 'Y', current_timestamp, 'default.jpg');
 insert into PRODUCT (giver_id, category, name, price, details, sale_status, created_date, image)
-values (1,'FOOD','변신',6500,'카프카이즘의대표작', 'Y', current_timestamp, 'default.jpg');
+values (1,'FOOD','변신',6500,'카프카이즘의대표작', 'Y', '2021-12-28', 'default.jpg');
 insert into PRODUCT (giver_id, category, name, price, details, sale_status, created_date, image)
 values (2,'FOOD_MEAL_KIT','벨아미',13500,'읽어봐야하는모파상의대표작', 'Y', current_timestamp, 'default.jpg');
 insert into PRODUCT (giver_id, category, name, price, details, sale_status, created_date, image)
-values (1,'LIVING','도롱뇽과의전쟁',9500,'도롱뇽을통해인간을관찰한다', 'Y', current_timestamp, 'default.jpg');
+values (1,'LIVING','도롱뇽과의전쟁',9500,'도롱뇽을통해인간을관찰한다', 'Y', '2021-12-30', 'default.jpg');
 insert into PRODUCT (giver_id, category, name, price, details, sale_status, created_date, image)
 values (2,'LIVING_WASHING','칼의노래',9500,'이순신장군소설', 'Y', current_timestamp, 'default.jpg');
 insert into PRODUCT (giver_id, category, name, price, details, sale_status, created_date, image)
-values (1,'LIVING_DAILY_SUPPLIES','허클베리핀의모험',5500,'톰소여의모험후속작', 'Y', current_timestamp, 'default.jpg');
+values (1,'LIVING_DAILY_SUPPLIES','허클베리핀의모험',5500,'톰소여의모험후속작', 'Y', '2022-02-05', 'default.jpg');
 insert into PRODUCT (giver_id, category, name, price, details, sale_status, created_date, image)
 values (2,'CLOTHING','레미제라블',10000,'눈물없인볼수없는대서사시', 'Y', current_timestamp, 'default.jpg');
 insert into PRODUCT (giver_id, category, name, price, details, sale_status, created_date, image)
-values (1,'ETC','돈키호테',10000,'모두가미쳤다고해도', 'Y', current_timestamp, 'default.jpg');
+values (1,'ETC','돈키호테',10000,'모두가미쳤다고해도', 'Y', '2022-03-04', 'default.jpg');
 
 insert into product_region (product_id, region_id)
 values (1,1);

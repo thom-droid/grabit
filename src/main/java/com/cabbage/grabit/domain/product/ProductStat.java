@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import java.math.BigDecimal;
 
 @ToString
 @Getter
@@ -34,10 +33,6 @@ public class ProductStat {
     private int two;
     @Column(nullable = true)
     private int one;
-
-    public ProductStat clone(){
-        return this.clone();
-    }
 
     public void updateRate(int newRate){
 
